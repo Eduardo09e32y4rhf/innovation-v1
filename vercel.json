@@ -1,34 +1,12 @@
 {
   "version": 2,
-  "builds": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "create-react-app",
+  "rewrites": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "^/static/(.*)",
-      "dest": "/frontend/static/$1"
-    },
-    {
-      "src": "^/favicon.ico",
-      "dest": "/frontend/favicon.ico"
-    },
-    {
-      "src": "^/manifest.json",
-      "dest": "/frontend/manifest.json"
-    },
-    {
-      "src": "^/logo.png",
-      "dest": "/frontend/logo.png"
-    },
-    {
-      "src": "^/(.*)",
-      "dest": "/frontend/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
