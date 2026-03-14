@@ -118,7 +118,7 @@ const SignUp = () => {
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
 			<div className={classes.paper}>
-				<div>
+				<div style={{ backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '8px', marginBottom: '10px' }}>
 					<center><img style={{ margin: "0 auto", width: "100%", maxWidth: "300px", mixBlendMode: "multiply" }} src={logo} alt="Whats" /></center>
 				</div>
 				{/*<Typography component="h1" variant="h5">

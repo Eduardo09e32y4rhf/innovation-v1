@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     padding: "0 10px",
     minHeight: "80px",
-    backgroundColor: "transparent", // Deixa o Drawer controlar a cor
+    backgroundColor: "#f5f5f5", // Cor exata do fundo da nova logo no print
     [theme.breakpoints.down("sm")]: {
       height: "80px"
     }
