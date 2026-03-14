@@ -75,12 +75,11 @@ const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    padding: "0 10px",
-    minHeight: "80px",
-    backgroundColor: "#f5f5f5", // Cor exata do fundo da nova logo no print
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    minHeight: "48px",
     [theme.breakpoints.down("sm")]: {
-      height: "80px"
+      height: "48px"
     }
   },
   appBar: {
@@ -364,7 +363,6 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-          <img src={logo} className={classes.logo} alt="logo" />
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <ChevronLeftIcon />
           </IconButton>
