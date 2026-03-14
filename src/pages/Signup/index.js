@@ -119,7 +119,7 @@ const SignUp = () => {
 			<CssBaseline />
 			<div className={classes.paper}>
 				<div>
-					<center><img style={{ margin: "0 auto", width: "70%" }} src={logo} alt="Whats" /></center>
+					<center><img style={{ margin: "0 auto", width: "100%", maxWidth: "300px" }} src={logo} alt="Whats" /></center>
 				</div>
 				{/*<Typography component="h1" variant="h5">
 					{i18n.t("signup.title")}
