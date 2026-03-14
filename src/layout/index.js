@@ -75,9 +75,10 @@ const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     padding: "0 8px",
     minHeight: "48px",
+    backgroundColor: theme.mode === 'light' ? "#0F111A" : "inherit", // Mantém o topo escuro para a logo brilhar
     [theme.breakpoints.down("sm")]: {
       height: "48px"
     }
@@ -169,6 +170,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "auto",
     maxWidth: 160,
+    objectFit: "contain",
     [theme.breakpoints.down("sm")]: {
       width: "auto",
       height: "40px",
