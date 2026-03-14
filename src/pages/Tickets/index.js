@@ -14,7 +14,7 @@ import { i18n } from "../../translate/i18n";
 const useStyles = makeStyles(theme => ({
 	chatContainer: {
 		flex: 1,
-		// backgroundColor: "#eee",
+		backgroundColor: "#f5f5f5",
 		padding: theme.spacing(4),
 		height: `calc(100% - 48px)`,
 		overflowY: "hidden",
@@ -38,12 +38,14 @@ const useStyles = makeStyles(theme => ({
 		flexDirection: "column",
 	},
 	welcomeMsg: {
-		backgroundColor: theme.palette.boxticket, 
+		backgroundColor: "#f5f5f5", 
 		display: "flex",
-		justifyContent: "space-evenly",
+		justifyContent: "center",
 		alignItems: "center",
 		height: "100%",
 		textAlign: "center",
+		border: "none",
+		boxShadow: "none",
 	},
 }));
 
@@ -64,10 +66,9 @@ const Chat = () => {
 								<Ticket />
 							</>
 						) : (
-							<Paper square variant="outlined" className={classes.welcomeMsg}>
-							
-							<div>
-							<center><img style={{ margin: "0 auto", width: "70%" }} src={logo} alt="logologin" /></center>
+							<Paper square elevation={0} className={classes.welcomeMsg}>
+							<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+								<img style={{ width: "100%", maxWidth: "600px", mixBlendMode: "multiply" }} src={logo} alt="logologin" />
 							</div>
 							
 							{/*<span>{i18n.t("chat.noTicketMessage")}</span>*/}

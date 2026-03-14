@@ -12,7 +12,7 @@ import { i18n } from "../../translate/i18n";
 const useStyles = makeStyles(theme => ({
 	chatContainer: {
 		flex: 1,
-		// backgroundColor: "#eee",
+		backgroundColor: "#f5f5f5",
 		padding: theme.spacing(1), //Aqui ele ajusta espaço na tela de ticket
 		height: `calc(100% - 48px)`,
 		overflowY: "hidden",
@@ -36,12 +36,14 @@ const useStyles = makeStyles(theme => ({
 		flexDirection: "column",
 	},
 	welcomeMsg: {
-		backgroundColor: theme.palette.boxticket, //DARK MODE PLW DESIGN//
+		backgroundColor: "#f5f5f5", // Cor exata do fundo para sumir com o quadrado da logo
 		display: "flex",
-		justifyContent: "space-evenly",
+		justifyContent: "center",
 		alignItems: "center",
 		height: "100%",
 		textAlign: "center",
+		border: "none",
+		boxShadow: "none",
 	},
 }));
 
@@ -62,10 +64,10 @@ const TicketsCustom = () => {
 								<Ticket />
 							</>
 						) : (
-							<Paper square variant="outlined" className={classes.welcomeMsg}>
+							<Paper square elevation={0} className={classes.welcomeMsg}>
 							{/* PLW DESIGN LOGO */}
-							<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-								<img style={{ width: "100%", maxWidth: "500px", mixBlendMode: "multiply" }} src={logo} alt="logologin" />
+							<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+								<img style={{ width: "100%", maxWidth: "600px", mixBlendMode: "multiply" }} src={logo} alt="logologin" />
 							</div>
 							{/* PLW DESIGN LOGO */}
 							{/*<span>{i18n.t("chat.noTicketMessage")}</span>*/}
