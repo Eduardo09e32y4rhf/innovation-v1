@@ -363,19 +363,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-          <Typography 
-            variant="h5" 
-            style={{ 
-              fontWeight: '800', 
-              letterSpacing: '1px',
-              background: 'linear-gradient(to right, #C84E89, #B15DC1, #6978D1)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontFamily: 'Roboto, sans-serif'
-            }}
-          >
-            INNOVATION
-          </Typography>
+          <img src={logo} className={classes.logo} alt="logo" />
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <ChevronLeftIcon />
           </IconButton>

@@ -64,20 +64,8 @@ const TicketsCustom = () => {
 						) : (
 							<Paper square variant="outlined" className={classes.welcomeMsg}>
 							{/* PLW DESIGN LOGO */}
-							<div style={{ textAlign: "center", width: "100%" }}>
-								<Typography 
-									variant="h2" 
-									style={{ 
-										fontWeight: '900', 
-										letterSpacing: '2px',
-										background: 'linear-gradient(to right, #C84E89, #B15DC1, #6978D1)',
-										WebkitBackgroundClip: 'text',
-										WebkitTextFillColor: 'transparent',
-										fontFamily: 'Roboto, sans-serif'
-									}}
-								>
-									INNOVATION
-								</Typography>
+							<div>
+								<center><img style={{ margin: "0 auto", width: "100%", maxWidth: "300px" }} src={logo} alt="logologin" /></center>
 							</div>
 							{/* PLW DESIGN LOGO */}
 							{/*<span>{i18n.t("chat.noTicketMessage")}</span>*/}
