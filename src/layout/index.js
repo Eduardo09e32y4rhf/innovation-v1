@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     padding: "0 10px",
     minHeight: "80px",
-    backgroundColor: "#F8F9FA", // Mescla com o fundo da imagem
+    backgroundColor: "transparent",
     [theme.breakpoints.down("sm")]: {
       height: "80px"
     }
@@ -171,6 +171,7 @@ const useStyles = makeStyles((theme) => ({
     height: "60px",
     maxWidth: 130, // Proporção mais elegante
     objectFit: "contain",
+    mixBlendMode: "multiply", // Torna o fundo branco 100% transparente
     [theme.breakpoints.down("sm")]: {
       width: "auto",
       height: "50px",
