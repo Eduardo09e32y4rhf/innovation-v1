@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     padding: "0 10px",
     minHeight: "80px",
-    backgroundColor: "transparent",
+    backgroundColor: "#FFFFFF", // Branco puro para casar com a logo
     [theme.breakpoints.down("sm")]: {
       height: "80px"
     }
