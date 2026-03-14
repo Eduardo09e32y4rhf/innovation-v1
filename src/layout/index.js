@@ -77,9 +77,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "flex-end",
     padding: "0 8px",
-    minHeight: "48px",
+    minHeight: "35px",
     [theme.breakpoints.down("sm")]: {
-      height: "48px"
+      height: "35px"
     }
   },
   appBar: {

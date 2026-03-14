@@ -75,11 +75,11 @@ const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     padding: "0 8px",
-    minHeight: "48px",
+    minHeight: "35px",
     [theme.breakpoints.down("sm")]: {
-      height: "48px"
+      height: "35px"
     }
   },
   appBar: {
@@ -361,7 +361,6 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-          <img src={logo} className={classes.logo} alt="logo" />
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <ChevronLeftIcon />
           </IconButton>

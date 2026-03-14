@@ -64,9 +64,7 @@ const TicketsCustom = () => {
 						) : (
 							<Paper square variant="outlined" className={classes.welcomeMsg}>
 							{/* PLW DESIGN LOGO */}
-							<div>
-							<center><img style={{ margin: "0 auto", width: "70%" }} src={logo} alt="logologin" /></center>
-							</div>
+							<span>{i18n.t("chat.noTicketMessage")}</span>
 							{/* PLW DESIGN LOGO */}
 							{/*<span>{i18n.t("chat.noTicketMessage")}</span>*/}
 							</Paper>
