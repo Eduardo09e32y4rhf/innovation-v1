@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
-		backgroundColor: theme.palette.boxticket, //DARK MODE PLW DESIGN//
+        backgroundColor: "#f5f5f5", // Cor exata do fundo para sumir com o quadrado da logo
     },
     placeholderItem: {
     }
@@ -63,8 +63,8 @@ const TicketAdvanced = (props) => {
 		return <Box className={classes.placeholderContainer}>
              {/*<div className={classes.placeholderItem}>{i18n.t("chat.noTicketMessage")}</div>*/}
 			//PLW DESIGN LOGO//
-			<div>
-			<center><img style={{ margin: "0 auto", width: "70%" }} src={logo} alt="logologin" /></center>
+			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+				<img style={{ width: "100%", maxWidth: "600px" }} src={logo} alt="logologin" />
 			</div>
 			//PLW DESIGN LOGO//
 			<br />
