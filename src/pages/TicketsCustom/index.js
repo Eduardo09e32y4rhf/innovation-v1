@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 	},
 
 	chatPapper: {
-		// backgroundColor: "red",
+		backgroundColor: "#f5f5f5",
 		display: "flex",
 		height: "100%",
 	},
@@ -34,9 +34,10 @@ const useStyles = makeStyles(theme => ({
 		display: "flex",
 		height: "100%",
 		flexDirection: "column",
+		backgroundColor: "#f5f5f5",
 	},
 	welcomeMsg: {
-		backgroundColor: "#f5f5f5", // Cor exata do fundo para sumir com o quadrado da logo
+		backgroundColor: "#f5f5f5", // Cor exata do fundo da logo
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
@@ -67,7 +68,7 @@ const TicketsCustom = () => {
 							<Paper square elevation={0} className={classes.welcomeMsg}>
 							{/* PLW DESIGN LOGO */}
 							<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-								<img style={{ width: "100%", maxWidth: "600px", mixBlendMode: "multiply" }} src={logo} alt="logologin" />
+								<img style={{ width: "100%", maxWidth: "600px" }} src={logo} alt="logologin" />
 							</div>
 							{/* PLW DESIGN LOGO */}
 							{/*<span>{i18n.t("chat.noTicketMessage")}</span>*/}
