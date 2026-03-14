@@ -76,11 +76,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "0 8px",
-    minHeight: "48px",
-    backgroundColor: "#FFF",
+    padding: "0 10px",
+    minHeight: "80px",
+    backgroundColor: "#F8F9FA", // Mescla com o fundo da imagem
     [theme.breakpoints.down("sm")]: {
-      height: "48px"
+      height: "80px"
     }
   },
   appBar: {
@@ -168,13 +168,13 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     width: "100%",
-    height: "auto",
-    maxWidth: 160,
+    height: "60px",
+    maxWidth: 130, // Proporção mais elegante
     objectFit: "contain",
     [theme.breakpoints.down("sm")]: {
       width: "auto",
-      height: "40px",
-      maxWidth: 160,
+      height: "50px",
+      maxWidth: 130,
     },
     logo: theme.logo
   },
