@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     padding: "0 8px",
     minHeight: "48px",
-    backgroundColor: theme.mode === 'light' ? "#0F111A" : "inherit", // Mantém o topo escuro para a logo brilhar
+    backgroundColor: "#FFF",
     [theme.breakpoints.down("sm")]: {
       height: "48px"
     }
@@ -363,7 +363,19 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-          <img src={logo} className={classes.logo} alt="logo" />
+          <Typography 
+            variant="h5" 
+            style={{ 
+              fontWeight: '800', 
+              letterSpacing: '1px',
+              background: 'linear-gradient(to right, #C84E89, #B15DC1, #6978D1)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontFamily: 'Roboto, sans-serif'
+            }}
+          >
+            INNOVATION
+          </Typography>
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <ChevronLeftIcon />
           </IconButton>

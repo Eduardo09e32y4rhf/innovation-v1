@@ -146,8 +146,20 @@ const Login = () => {
 		<Container component="main" maxWidth="xs">
 			<CssBaseline/>
 			<div className={classes.paper}>
-				<div>
-					<img style={{ margin: "0 auto", width: "100%", maxWidth: "300px" }} src={logo} alt="Whats" />
+				<div style={{ marginBottom: 20 }}>
+					<Typography 
+						variant="h3" 
+						style={{ 
+							fontWeight: '900', 
+							letterSpacing: '2px',
+							background: 'linear-gradient(to right, #C84E89, #B15DC1, #6978D1)',
+							WebkitBackgroundClip: 'text',
+							WebkitTextFillColor: 'transparent',
+							fontFamily: 'Roboto, sans-serif'
+						}}
+					>
+						INNOVATION
+					</Typography>
 				</div>
 				{/*<Typography component="h1" variant="h5">
 					{i18n.t("login.title")}
