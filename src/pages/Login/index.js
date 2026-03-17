@@ -286,19 +286,6 @@ const Login = () => {
 										{loading ? <CircularProgress size={24} style={{ color: "white" }} /> : i18n.t("login.buttons.submit")}
 									</Button>
 
-									{/* Temporary diagnostic button */}
-									<Button
-										fullWidth
-										variant="outlined"
-										style={{ color: "rgba(255,255,255,0.4)", borderColor: "rgba(255,255,255,0.2)", marginTop: 8 }}
-										onClick={() => {
-											window.alert("Tentando login forçado com admin@admin.com");
-											handleLogin({ email: 'admin@admin.com', password: 'password' });
-										}}
-									>
-										DEBUG: FORCAR LOGIN
-									</Button>
-
 									<Typography className={classes.signUpText}>
 										{i18n.t("login.buttons.noAccount")}
 										<Link

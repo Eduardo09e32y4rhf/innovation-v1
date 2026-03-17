@@ -23,6 +23,29 @@ app.set("queues", {
   sendScheduledMessages
 });
 
+// ─────────────────────────────────────────────────────
+// SEGURANÇA: Remover header X-Powered-By (esconde Express)
+// ─────────────────────────────────────────────────────
+app.disable("x-powered-by");
+
+// ─────────────────────────────────────────────────────
+// SEGURANÇA: Headers HTTP de segurança (equivalente ao helmet)
+// Inspirados nas melhores práticas do innovation.ia
+// ─────────────────────────────────────────────────────
+app.use((_req: Request, res: Response, next: NextFunction) => {
+  // Impede que o browser faça MIME sniffing
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  // Impede que a página seja exibida em iframe (clickjacking)
+  res.setHeader("X-Frame-Options", "DENY");
+  // Ativa filtro XSS do browser (legado, mas ainda útil)
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  // Não enviar referrer para links externos
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  // Desabilitar features desnecessárias do browser
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
+
 const bodyparser = require('body-parser');
 app.use(bodyParser.json({ limit: '10mb' }));
 

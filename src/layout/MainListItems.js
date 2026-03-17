@@ -30,7 +30,7 @@ import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import LocalAtmOutlinedIcon from '@material-ui/icons/LocalAtmOutlined';
 import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined';
 import ViewQuiltOutlinedIcon from '@material-ui/icons/ViewQuiltOutlined';
-import CampaignOutlinedIcon from '@material-ui/icons/CampaignOutlined';
+import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 import SchemaOutlinedIcon from '@material-ui/icons/AccountTreeOutlined';
 import RotateRight from "@material-ui/icons/RotateRight";
 import { i18n } from "../translate/i18n";
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     height: 36,
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
-    color: "#64748b", // Slate 500
+    color: theme.palette.type === 'light' ? "#64748b" : "#94a3b8", // Slate 500 / Slate 400
     fontWeight: 700,
     fontSize: "11px",
     textTransform: "uppercase",
@@ -70,31 +70,31 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     minHeight: "44px",
     transition: "all 0.2s ease-in-out",
-    color: "#64748b",
+    color: theme.palette.type === 'light' ? "#64748b" : "#94a3b8",
     "&:hover": {
-      backgroundColor: "#f8fafc",
-      color: "#682ee2",
+      backgroundColor: theme.palette.type === 'light' ? "#f8fafc" : "rgba(255, 255, 255, 0.05)",
+      color: theme.palette.type === 'light' ? "#682ee2" : "#a78bfa",
       "& .MuiListItemIcon-root": {
-        color: "#682ee2",
+        color: theme.palette.type === 'light' ? "#682ee2" : "#a78bfa",
       },
     },
     "&.Mui-selected": {
-      backgroundColor: "#f3f0ff",
-      color: "#682ee2",
+      backgroundColor: theme.palette.type === 'light' ? "#f3f0ff" : "rgba(167, 139, 250, 0.1)",
+      color: theme.palette.type === 'light' ? "#682ee2" : "#a78bfa",
       "& .MuiListItemIcon-root": {
-        color: "#682ee2",
+        color: theme.palette.type === 'light' ? "#682ee2" : "#a78bfa",
       },
       "& .MuiListItemText-primary": {
         fontWeight: 600,
       },
       "&:hover": {
-        backgroundColor: "#f3f0ff",
+        backgroundColor: theme.palette.type === 'light' ? "#f3f0ff" : "rgba(167, 139, 250, 0.15)",
       },
     },
   },
   listItemIcon: {
     minWidth: 40,
-    color: "#64748b", // Slate 500
+    color: theme.palette.type === 'light' ? "#64748b" : "#94a3b8",
   },
   listItemText: {
     "& .MuiListItemText-primary": {
@@ -515,7 +515,7 @@ const MainListItems = (props) => {
                         button
                     >
                       <ListItemIcon>
-                        <EventAvailableIcon />
+                        <EventAvailableOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText primary="Campanha" />
                     </ListItem>

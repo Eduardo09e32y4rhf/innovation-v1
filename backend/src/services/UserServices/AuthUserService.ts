@@ -38,12 +38,19 @@ const AuthUserService = async ({
     include: ["queues", { model: Company, include: [{ model: Setting }] }]
   });
 
+  // SEGURANÇA: Mesma mensagem de erro para usuário inexistente e senha errada.
+  // Evita "user enumeration attack" — atacante não consegue descobrir
+  // quais e-mails estão cadastrados testando o login.
+  const GENERIC_AUTH_ERROR = "ERR_INVALID_CREDENTIALS";
+
   if (!user) {
-    throw new AppError("ERR_USER_DONT_EXISTS", 401);
+    // Mesmo sem usuário, simular verificação para tempo constante (timing attack prevention)
+    await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 100));
+    throw new AppError(GENERIC_AUTH_ERROR, 401);
   }
 
   if (!(await user.checkPassword(password))) {
-    throw new AppError("ERR_INVALID_CREDENTIALS", 401);
+    throw new AppError(GENERIC_AUTH_ERROR, 401);
   }
 
   const token = createAccessToken(user);
@@ -59,3 +66,4 @@ const AuthUserService = async ({
 };
 
 export default AuthUserService;
+

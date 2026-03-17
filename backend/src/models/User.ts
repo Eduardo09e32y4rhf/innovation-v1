@@ -45,6 +45,10 @@ class User extends Model<User> {
   @Column
   passwordHash: string;
 
+  // Campo de reset de senha (adicionado via migration 20231111185822)
+  @Column
+  resetPassword: string;
+
   @Default(0)
   @Column
   tokenVersion: number;
@@ -96,9 +100,13 @@ class User extends Model<User> {
   @BeforeCreate
   static hashPassword = async (instance: User): Promise<void> => {
     if (instance.password) {
-      instance.passwordHash = await hash(instance.password, 8);
+      // SEGURANÇA: rounds=12 (~300ms) é o mínimo recomendado para 2024.
+      // rounds=8 era rápido demais (~1ms) — vulnerável a ataques GPU.
+      // Referência: innovation.ia usa bcrypt.hashpw com gensalt() padrão (rounds=12).
+      instance.passwordHash = await hash(instance.password, 12);
     }
   };
+
 
   public checkPassword = async (password: string): Promise<boolean> => {
     return compare(password, this.getDataValue("passwordHash"));

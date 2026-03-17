@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     fontSize: "1.25rem",
     fontWeight: 700,
-    color: "#682ee2", // Innovation Violet
+    color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main, // Innovation Violet / adapted
     display: "flex",
     alignItems: "center",
   },
@@ -131,11 +131,11 @@ const useStyles = makeStyles((theme) => ({
   },
   greeting: {
     fontSize: "0.875rem",
-    color: "#64748b",
+    color: theme.palette.type === 'light' ? "#64748b" : "#cbd5e1",
     marginBottom: theme.spacing(3),
     "& span": {
       fontWeight: 600,
-      color: "#682ee2",
+      color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main,
     },
   },
   avatar: {
@@ -289,7 +289,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
       >
         <div className={classes.toolbarIcon}>
           <img src={logo} className={classes.logo} alt="logo" />
-          <Typography variant="h6" className={classes.title} style={{ marginLeft: 12, fontSize: "1.25rem", color: "#682ee2" }}>
+          <Typography variant="h6" className={classes.title} style={{ marginLeft: 12, fontSize: "1.25rem" }}>
             Innovation
           </Typography>
         </div>
