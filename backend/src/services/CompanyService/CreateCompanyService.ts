@@ -4,6 +4,7 @@ import Company from "../../models/Company";
 import User from "../../models/User";
 import Setting from "../../models/Setting";
 import { hash } from "bcryptjs";
+import SendWelcomeMail from "./SendWelcomeMail";
 
 interface CompanyData {
   name: string;
@@ -301,6 +302,11 @@ const CreateCompanyService = async (
     if (!created) {
       await setting.update({ value: `${campaignsEnabled}` });
     }
+  }
+
+  // Send Welcome Email async
+  if (company.email) {
+    SendWelcomeMail(company.email, company.name).catch(console.error);
   }
 
   return company;

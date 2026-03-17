@@ -49,6 +49,8 @@ const messages = {
         buttons: {
           submit: "Entrar",
           register: "Registre-se, agora mesmo!",
+          forgetPassword: "Esqueci minha senha",
+          noAccount: "Não tem uma conta?",
         },
       },
       resetPassword: {

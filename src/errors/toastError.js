@@ -38,17 +38,11 @@ const toastError = err => {
         }
     } if (isString(err)) {
         console.error(`Error: ${err}`);
-        // Optionally log the error to an external service here
-        /*
         toast.error(err);
-        */
         return;
     } else {
-        console.error("An error occurred!");
-        // Optionally log the error to an external service here
-        /*
-        toast.error("An error occurred!");
-        */
+        console.error("An error occurred!", err);
+        toast.error("An error occurred! Check console for details.");
         return;
     }
 };

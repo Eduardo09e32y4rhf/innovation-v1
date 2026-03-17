@@ -31,55 +31,64 @@ const App = () => {
 
     const theme = createTheme(
         {
+            typography: {
+                fontFamily: [
+                    'Inter',
+                    '-apple-system',
+                    'BlinkMacSystemFont',
+                    '"Segoe UI"',
+                    'Roboto',
+                    '"Helvetica Neue"',
+                    'Arial',
+                    'sans-serif',
+                    '"Apple Color Emoji"',
+                    '"Segoe UI Emoji"',
+                    '"Segoe UI Symbol"',
+                ].join(','),
+            },
             scrollbarStyles: {
                 "&::-webkit-scrollbar": {
-                    width: '8px',
-                    height: '8px',
+                    width: '6px',
+                    height: '6px',
                 },
                 "&::-webkit-scrollbar-thumb": {
-                    boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: "#682EE3",
+                    backgroundColor: "#cbd5e1",
+                    borderRadius: "10px",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                    backgroundColor: "#94a3b8",
                 },
             },
             scrollbarStylesSoft: {
                 "&::-webkit-scrollbar": {
-                    width: "8px",
+                    width: "6px",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: mode === "light" ? "#F3F3F3" : "#333333",
+                    backgroundColor: mode === "light" ? "#cbd5e1" : "#475569",
+                    borderRadius: "10px",
                 },
             },
             palette: {
                 type: mode,
-                primary: { main: mode === "light" ? "#682EE3" : "#FFFFFF" },
-                textPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
-                borderPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
-                dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
-                light: { main: mode === "light" ? "#F3F3F3" : "#333333" },
-                tabHeaderBackground: mode === "light" ? "#EEE" : "#666",
-                optionsBackground: mode === "light" ? "#fafafa" : "#333",
-				options: mode === "light" ? "#fafafa" : "#666",
-				fontecor: mode === "light" ? "#128c7e" : "#fff",
-                fancyBackground: mode === "light" ? "#fafafa" : "#333",
-				bordabox: mode === "light" ? "#eee" : "#333",
-				newmessagebox: mode === "light" ? "#eee" : "#333",
-				inputdigita: mode === "light" ? "#fff" : "#666",
-				contactdrawer: mode === "light" ? "#fff" : "#666",
-				announcements: mode === "light" ? "#ededed" : "#333",
-				login: mode === "light" ? "#fff" : "#1C1C1C",
-				announcementspopover: mode === "light" ? "#fff" : "#666",
-				chatlist: mode === "light" ? "#eee" : "#666",
-				boxlist: mode === "light" ? "#ededed" : "#666",
-				boxchatlist: mode === "light" ? "#ededed" : "#333",
-                total: mode === "light" ? "#fff" : "#222",
-                messageIcons: mode === "light" ? "grey" : "#F3F3F3",
-                inputBackground: mode === "light" ? "#FFFFFF" : "#333",
-                barraSuperior: mode === "light" ? "linear-gradient(to right, #682EE3, #682EE3 , #682EE3)" : "#666",
-				boxticket: mode === "light" ? "#EEE" : "#666",
-				campaigntab: mode === "light" ? "#ededed" : "#666",
-				mediainput: mode === "light" ? "#ededed" : "#1c1c1c",
+                primary: { main: mode === "light" ? "#7c3aed" : "#a78bfa" }, // brand-600
+                background: {
+                    default: mode === "light" ? "#F8FAFC" : "#0f172a", // slate-50 / slate-900
+                    paper: mode === "light" ? "#FFFFFF" : "#1e293b",
+                },
+                text: {
+                    primary: mode === "light" ? "#0f172a" : "#f8fafc",
+                    secondary: mode === "light" ? "#64748b" : "#94a3b8",
+                },
+                tabHeaderBackground: mode === "light" ? "#f1f5f9" : "#334155",
+                optionsBackground: mode === "light" ? "#f8fafc" : "#1e293b",
+                fancyBackground: mode === "light" ? "#F8FAFC" : "#0f172a",
+                barraSuperior: mode === "light" ? "#FFFFFF" : "#1e293b",
+                boxticket: mode === "light" ? "#f1f5f9" : "#334155",
             },
             mode,
+            shape: {
+                borderRadius: 12,
+            },
         },
         locale
     );
