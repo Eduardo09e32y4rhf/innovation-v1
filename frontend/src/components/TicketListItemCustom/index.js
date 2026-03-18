@@ -15,7 +15,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
-
+import AndroidIcon from "@material-ui/icons/Android";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import { i18n } from "../../translate/i18n";
 
 import api from "../../services/api";
