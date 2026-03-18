@@ -32,6 +32,7 @@ import { i18n } from "../../translate/i18n";
 import { openApi } from "../../services/api";
 import toastError from "../../errors/toastError";
 import moment from "moment";
+import logo from "../../assets/logo.png";
 const Copyright = () => {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -82,6 +83,10 @@ const useStyles = makeStyles(theme => ({
 		color: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
 		letterSpacing: "1px",
 		textTransform: "uppercase"
+	},
+	logo: {
+		width: "150px",
+		marginBottom: theme.spacing(3),
 	},
 	textField: {
 		"& .MuiInputBase-root": {
@@ -229,9 +234,12 @@ const SignUp = () => {
 				<CssBaseline />
 				<Grow in={show} timeout={1000}>
 					<div className={classes.paper}>
-						<Typography component="h1" variant="h4" className={classes.title}>
-							{i18n.t("signup.title")}
-						</Typography>
+						<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+							<img src={logo} alt="logo" className={classes.logo} />
+							<Typography component="h1" variant="h4" className={classes.title}>
+								{i18n.t("signup.title")}
+							</Typography>
+						</div>
 						<Formik
 							initialValues={user}
 							enableReinitialize={true}

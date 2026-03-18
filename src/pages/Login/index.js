@@ -80,6 +80,10 @@ const useStyles = makeStyles(theme => ({
 		letterSpacing: "1px",
 		textTransform: "uppercase"
 	},
+	logo: {
+		width: "150px",
+		marginBottom: theme.spacing(3),
+	},
 	textField: {
 		marginBottom: theme.spacing(2),
 		"& .MuiInputBase-root": {
@@ -191,9 +195,12 @@ const Login = () => {
 				<Grow in={show} timeout={1000}>
 					<div className={classes.paper}>
 						<Fade in={show} timeout={1500}>
-							<Typography component="h1" variant="h4" className={classes.title}>
-								{i18n.t("login.title")}
-							</Typography>
+							<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+								<img src={logo} alt="logo" className={classes.logo} />
+								<Typography component="h1" variant="h4" className={classes.title}>
+									{i18n.t("login.title")}
+								</Typography>
+							</div>
 						</Fade>
 
 						<Formik
