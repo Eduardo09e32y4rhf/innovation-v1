@@ -31,55 +31,106 @@ const App = () => {
 
     const theme = createTheme(
         {
+            typography: {
+                fontFamily: [
+                    'Inter',
+                    '-apple-system',
+                    'BlinkMacSystemFont',
+                    '"Segoe UI"',
+                    'Roboto',
+                    '"Helvetica Neue"',
+                    'Arial',
+                    'sans-serif',
+                    '"Apple Color Emoji"',
+                    '"Segoe UI Emoji"',
+                    '"Segoe UI Symbol"',
+                ].join(','),
+            },
             scrollbarStyles: {
                 "&::-webkit-scrollbar": {
-                    width: '8px',
-                    height: '8px',
+                    width: '6px',
+                    height: '6px',
                 },
                 "&::-webkit-scrollbar-thumb": {
-                    boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: "#682EE3",
+                    backgroundColor: "#cbd5e1",
+                    borderRadius: "10px",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                    backgroundColor: "#94a3b8",
                 },
             },
             scrollbarStylesSoft: {
                 "&::-webkit-scrollbar": {
-                    width: "8px",
+                    width: "6px",
                 },
                 "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: mode === "light" ? "#F3F3F3" : "#333333",
+                    backgroundColor: mode === "light" ? "#cbd5e1" : "#475569",
+                    borderRadius: "10px",
                 },
             },
             palette: {
                 type: mode,
-                primary: { main: mode === "light" ? "#682EE3" : "#FFFFFF" },
-                textPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
-                borderPrimary: mode === "light" ? "#682EE3" : "#FFFFFF",
-                dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
-                light: { main: mode === "light" ? "#F3F3F3" : "#333333" },
-                tabHeaderBackground: mode === "light" ? "#EEE" : "#666",
-                optionsBackground: mode === "light" ? "#fafafa" : "#333",
-				options: mode === "light" ? "#fafafa" : "#666",
-				fontecor: mode === "light" ? "#128c7e" : "#fff",
-                fancyBackground: mode === "light" ? "#fafafa" : "#333",
-				bordabox: mode === "light" ? "#eee" : "#333",
-				newmessagebox: mode === "light" ? "#eee" : "#333",
-				inputdigita: mode === "light" ? "#fff" : "#666",
-				contactdrawer: mode === "light" ? "#fff" : "#666",
-				announcements: mode === "light" ? "#ededed" : "#333",
-				login: mode === "light" ? "#fff" : "#1C1C1C",
-				announcementspopover: mode === "light" ? "#fff" : "#666",
-				chatlist: mode === "light" ? "#eee" : "#666",
-				boxlist: mode === "light" ? "#ededed" : "#666",
-				boxchatlist: mode === "light" ? "#ededed" : "#333",
-                total: mode === "light" ? "#fff" : "#222",
-                messageIcons: mode === "light" ? "grey" : "#F3F3F3",
-                inputBackground: mode === "light" ? "#FFFFFF" : "#333",
-                barraSuperior: mode === "light" ? "linear-gradient(to right, #682EE3, #682EE3 , #682EE3)" : "#666",
-				boxticket: mode === "light" ? "#EEE" : "#666",
-				campaigntab: mode === "light" ? "#ededed" : "#666",
-				mediainput: mode === "light" ? "#ededed" : "#1c1c1c",
+                primary: {
+                    main: mode === "light" ? "#7c3aed" : "#a78bfa",
+                    dark: mode === "light" ? "#6d28d9" : "#c4b5fd",
+                    light: mode === "light" ? "#ede9fe" : "#4c1d95",
+                }, // brand-violet
+                secondary: {
+                    main: mode === "light" ? "#ec4899" : "#f472b6",
+                },
+                background: {
+                    default: mode === "light" ? "#f5f5f5" : "#0f172a", // Match logo bg / slate-900
+                    paper: mode === "light" ? "#FFFFFF" : "#1e293b",
+                },
+                text: {
+                    primary: mode === "light" ? "#0f172a" : "#f8fafc",
+                    secondary: mode === "light" ? "#64748b" : "#94a3b8",
+                },
+                tabHeaderBackground: mode === "light" ? "#f1f5f9" : "#334155",
+                optionsBackground: mode === "light" ? "#f8fafc" : "#1e293b",
+                fancyBackground: mode === "light" ? "#f5f5f5" : "#0f172a",
+                barraSuperior: mode === "light" ? "#FFFFFF" : "#1e293b",
+                boxticket: mode === "light" ? "#f1f5f9" : "#334155",
             },
             mode,
+            shape: {
+                borderRadius: 16,
+            },
+            overrides: {
+                MuiButton: {
+                    root: {
+                        textTransform: "none",
+                        borderRadius: 12,
+                        fontWeight: 600,
+                        transition: "all 0.2s ease-in-out",
+                    },
+                    containedPrimary: {
+                        boxShadow: "0 4px 6px -1px rgba(124, 58, 237, 0.2), 0 2px 4px -1px rgba(124, 58, 237, 0.1)",
+                        "&:hover": {
+                            boxShadow: "0 10px 15px -3px rgba(124, 58, 237, 0.3), 0 4px 6px -2px rgba(124, 58, 237, 0.1)",
+                            transform: "translateY(-1px)",
+                        },
+                    },
+                },
+                MuiPaper: {
+                    rounded: {
+                        borderRadius: 16,
+                    },
+                    elevation1: {
+                        boxShadow: mode === "light" 
+                            ? "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)" 
+                            : "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1)",
+                    },
+                },
+                MuiIconButton: {
+                    root: {
+                        transition: "all 0.2s ease-in-out",
+                        "&:hover": {
+                            backgroundColor: mode === "light" ? "rgba(124, 58, 237, 0.04)" : "rgba(167, 139, 250, 0.08)",
+                        },
+                    },
+                },
+            },
         },
         locale
     );

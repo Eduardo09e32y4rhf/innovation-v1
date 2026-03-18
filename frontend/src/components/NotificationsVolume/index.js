@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: "none !important",
     },
     icons: {
-        color: "#fff",
+        // color: "#fff",
     },
     customBadge: {
         backgroundColor: "#f44336",
@@ -60,10 +60,8 @@ const NotificationsVolume = ({ volume, setVolume }) => {
                 onClick={handleClick}
                 ref={anchorEl}
                 aria-label="Open Notifications"
-                // color="inherit"
-                // color="secondary"
             >
-                <VolumeUpIcon color="inherit" />
+                <VolumeUpIcon />
             </IconButton>
             <Popover
                 disableScrollLock

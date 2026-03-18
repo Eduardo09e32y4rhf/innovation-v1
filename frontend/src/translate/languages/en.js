@@ -34,10 +34,6 @@ const messages = {
 					submit: "Register",
 					login: "Already have an account? Login!",
 				},
-				greetings: {
-					welcome: "Create new account",
-					subtitle: "Fill in the details to register",
-				},
 				plan: {
 					attendant: "Attendant",
 					whatsapp: "WhatsApp",
@@ -46,12 +42,6 @@ const messages = {
 			},
 			login: {
 				title: "Login",
-				greetings: {
-					welcome: "Welcome back",
-					subtitle: "Access your account to continue",
-					forgotPassword: "Forgot your password?",
-					backToLogin: "← Back to login"
-				},
 				form: {
 					email: "Email",
 					password: "Password",
@@ -59,6 +49,8 @@ const messages = {
 				buttons: {
 					submit: "Login",
 					register: "Sign up now!",
+					forgetPassword: "Forgot password?",
+					noAccount: "Don't have an account?",
 				},
 			},
 			resetPassword: {
@@ -93,14 +85,6 @@ const messages = {
 					submitPassword: "Reset Password",
 					back: "Don't have an account? Sign up!",
 				},
-				greetings: {
-					welcome: "Forgot your password?",
-					welcomeReset: "Reset password",
-					subtitle: "Enter your email to recover access",
-					subtitleReset: "Enter the code received and your new password",
-					emailSent: "✓ Email sent! Check your inbox.",
-					instruction: "📧 Check your email and enter the verification code below"
-				}
 			},
 			dashboard: {
 				toasts: {

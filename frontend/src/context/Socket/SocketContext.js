@@ -98,9 +98,6 @@ const SocketManager = {
       }
 
       let token = JSON.parse(localStorage.getItem("token"));
-      if (!token) {
-        return new DummySocket();
-      }
       const { exp } = jwt.decode(token) ?? {};
 
       if ( Date.now() >= exp*1000) {
@@ -114,7 +111,10 @@ const SocketManager = {
       this.currentCompanyId = companyId;
       this.currentUserId = userId;
       
-
+      if (!token) {
+        return new DummySocket();
+      }
+      
       this.currentSocket = openSocket(process.env.REACT_APP_BACKEND_URL, {
         transports: ["websocket"],
         pingTimeout: 18000,

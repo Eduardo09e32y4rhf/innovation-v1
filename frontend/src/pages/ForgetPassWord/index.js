@@ -26,9 +26,9 @@ import {
 import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 import moment from "moment";
-import { toast } from 'react-toastify'; 
 import toastError from '../../errors/toastError';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from "../../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
     letterSpacing: "1px",
     textTransform: "uppercase"
+  },
+  logo: {
+    width: "150px",
+    marginBottom: theme.spacing(3),
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -240,9 +244,12 @@ const handleSendEmail = async (values) => {
         <CssBaseline />
         <Grow in={show} timeout={1000}>
           <div className={classes.paper}>
-            <Typography component="h1" variant="h5" className={classes.title}>
-              {i18n.t("resetPassword.title")}
-            </Typography>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <img src={logo} alt="logo" className={classes.logo} />
+              <Typography component="h1" variant="h5" className={classes.title}>
+                {i18n.t("resetPassword.title")}
+              </Typography>
+            </div>
             <Formik
               initialValues={{
                 email: "",

@@ -27,7 +27,7 @@ const Route = ({ component: Component, isPrivate = false, ...rest }) => {
 
 	return (
 		<>
-			{loading && <BackdropLoading />}
+			{loading && rest.path !== "/login" && <BackdropLoading />}
 			<RouterRoute {...rest} component={Component} />
 		</>
 	);

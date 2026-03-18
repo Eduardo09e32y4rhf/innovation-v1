@@ -106,6 +106,11 @@ const useAuth = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     (async () => {
+      // Emergency timeout to ensure the login page is not blocked forever
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 5000);
+
       if (token) {
         try {
           const { data } = await api.post("/auth/refresh_token");
@@ -117,6 +122,7 @@ const useAuth = () => {
         }
       }
       setLoading(false);
+      clearTimeout(timeoutId);
     })();
   }, []);
 
@@ -141,6 +147,7 @@ const useAuth = () => {
     setLoading(true);
 
     try {
+      console.log("handleLogin attempt with:", userData);
       const { data } = await api.post("/auth/login", userData);
       const {
         user: { companyId, id, company },
@@ -156,13 +163,12 @@ const useAuth = () => {
       }
 
       moment.locale("pt-br");
-      const dueDate = data.user.company.dueDate;
+      const dueDate = data.user?.company?.dueDate;
       const hoje = moment(moment()).format("DD/MM/yyyy");
-      const vencimento = moment(dueDate).format("DD/MM/yyyy");
+      const vencimento = dueDate ? moment(dueDate).format("DD/MM/yyyy") : "Perpétuo";
 
-      var diff = moment(dueDate).diff(moment(moment()).format());
-
-      var before = moment(moment().format()).isBefore(dueDate);
+      var diff = dueDate ? moment(dueDate).diff(moment(moment()).format()) : 999999;
+      var before = dueDate ? moment(moment().format()).isBefore(dueDate) : true;
       var dias = moment.duration(diff).asDays();
 
       if (before === true) {
@@ -174,7 +180,7 @@ const useAuth = () => {
         setUser(data.user);
         setIsAuth(true);
         toast.success(i18n.t("auth.toasts.success"));
-        if (Math.round(dias) < 5) {
+        if (dueDate && Math.round(dias) < 5) {
           toast.warn(
             `Sua assinatura vence em ${Math.round(dias)} ${
               Math.round(dias) === 1 ? "dia" : "dias"
@@ -191,6 +197,9 @@ Entre em contato com o Suporte para mais informações! `);
 
       //quebra linha
     } catch (err) {
+      console.error("handleLogin error:", err);
+      // Diagnostic alert
+      window.alert("Login falhou: " + (err.response?.data?.error || err.message || "Erro desconhecido"));
       toastError(err);
       setLoading(false);
     }

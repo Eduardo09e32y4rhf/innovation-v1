@@ -34,10 +34,6 @@ const messages = {
           submit: "Cadastrar",
           login: "Já tem uma conta? Entre!",
         },
-        greetings: {
-          welcome: "Criar nova conta",
-          subtitle: "Preencha os dados para se cadastrar",
-        },
         plan: {
           attendant: "Atendente",
           whatsapp: "WhatsApp",
@@ -46,12 +42,6 @@ const messages = {
       },
       login: {
         title: "Login",
-        greetings: {
-          welcome: "Bem-vindo de volta",
-          subtitle: "Acesse sua conta para continuar",
-          forgotPassword: "Esqueceu sua senha?",
-          backToLogin: "← Voltar para o login"
-        },
         form: {
           email: "Email",
           password: "Senha",
@@ -59,6 +49,8 @@ const messages = {
         buttons: {
           submit: "Entrar",
           register: "Registre-se, agora mesmo!",
+          forgetPassword: "Esqueci minha senha",
+          noAccount: "Não tem uma conta?",
         },
       },
       resetPassword: {
@@ -94,14 +86,6 @@ const messages = {
           submitPassword: "Redefinir senha",
           back: "Não tem uma conta? Cadastre-se!",
         },
-        greetings: {
-          welcome: "Esqueceu sua senha?",
-          welcomeReset: "Redefinir senha",
-          subtitle: "Informe seu e-mail para recuperar o acesso",
-          subtitleReset: "Insira o código recebido e sua nova senha",
-          emailSent: "✓ E-mail enviado! Verifique sua caixa de entrada.",
-          instruction: "📧 Verifique seu e-mail e insira o código de verificação abaixo"
-        }
       },
       dashboard: {
         toasts: {

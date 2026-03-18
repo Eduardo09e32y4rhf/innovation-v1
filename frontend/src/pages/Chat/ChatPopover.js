@@ -226,9 +226,8 @@ export default function ChatPopover() {
       <IconButton
         aria-describedby={id}
         variant="contained"
-        color={invisible ? "default" : "inherit"}
         onClick={handleClick}
-        style={{ color: "white" }}
+        color={invisible ? "default" : "inherit"}
       >
         <Badge color="secondary" variant="dot" invisible={invisible}>
           <ForumIcon />

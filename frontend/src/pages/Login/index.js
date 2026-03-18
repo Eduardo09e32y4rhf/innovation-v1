@@ -48,56 +48,69 @@ const useStyles = makeStyles(theme => ({
 	root: {
 		width: "100%",
 		minHeight: "100vh",
-		background: theme.palette.type === 'light' ? "#f8fafc" : "#0f172a",
+		background: theme.palette.type === 'light' 
+			? "radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.05) 0, transparent 40%), radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.05) 0, transparent 40%), #f5f5f5"
+			: "radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.1) 0, transparent 40%), radial-gradient(circle at 90% 90%, rgba(30, 41, 59, 0.5) 0, transparent 40%), #0f172a",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
 		textAlign: "center",
+		position: "relative",
+		overflow: "hidden",
 	},
 	paper: {
-		backgroundColor: theme.palette.type === 'light' ? "#ffffff" : "#1e293b",
+		backgroundColor: theme.palette.type === 'light' ? "rgba(255, 255, 255, 0.85)" : "rgba(30, 41, 59, 0.7)",
+		backdropFilter: "blur(20px)",
+		WebkitBackdropFilter: "blur(20px)",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: "40px",
-		borderRadius: "20px",
-		border: `1px solid ${theme.palette.type === 'light' ? "#e2e8f0" : "#334155"}`,
-		boxShadow: theme.palette.type === 'light' ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" : "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
+		padding: "48px",
+		borderRadius: "28px",
+		border: `1px solid ${theme.palette.type === 'light' ? "rgba(255, 255, 255, 0.6)" : "rgba(255, 255, 255, 0.1)"}`,
+		boxShadow: theme.palette.type === 'light' 
+			? "0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+			: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
 		width: "100%",
+		transition: "all 0.3s ease",
 		[theme.breakpoints.down("xs")]: {
-			padding: "24px 16px",
+			padding: "32px 24px",
 		},
 	},
 	form: {
 		width: "100%", 
-		marginTop: theme.spacing(3),
+		marginTop: theme.spacing(4),
 	},
 	title: {
-		fontWeight: 800,
+		fontWeight: 900,
+		marginBottom: theme.spacing(1),
+		background: theme.palette.type === 'light' 
+			? "linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)" 
+			: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
+		WebkitBackgroundClip: "text",
+		WebkitTextFillColor: "transparent",
+		fontSize: "2.25rem",
+	},
+	logo: {
+		width: "140px",
 		marginBottom: theme.spacing(3),
-		color: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
-		letterSpacing: "1px",
-		textTransform: "uppercase"
+		filter: "drop-shadow(0 10px 15px rgba(124, 58, 237, 0.2))",
 	},
 	textField: {
-		marginBottom: theme.spacing(2),
-		"& .MuiInputBase-root": {
-			color: theme.palette.text.primary,
-		},
-		"& .MuiInputLabel-root": {
-			color: theme.palette.text.secondary,
-		},
+		marginBottom: theme.spacing(2.5),
 		"& .MuiOutlinedInput-root": {
+			borderRadius: "16px",
+			backgroundColor: theme.palette.type === 'light' ? "rgba(255, 255, 255, 0.5)" : "rgba(15, 23, 42, 0.3)",
+			transition: "all 0.2s ease",
 			"& fieldset": {
-				borderColor: theme.palette.type === 'light' ? "#cbd5e1" : "#475569",
-				borderRadius: "12px",
+				borderColor: theme.palette.type === 'light' ? "#e2e8f0" : "#334155",
 			},
 			"&:hover fieldset": {
-				borderColor: theme.palette.type === 'light' ? "#94a3b8" : "#94a3b8",
+				borderColor: theme.palette.primary.main,
 			},
 			"&.Mui-focused fieldset": {
-				borderColor: theme.palette.primary.main,
+				borderWidth: "2px",
 			},
 		},
 		"& input:-webkit-autofill": {
@@ -107,36 +120,39 @@ const useStyles = makeStyles(theme => ({
 	},
 	submit: {
 		margin: theme.spacing(4, 0, 2),
-		padding: "14px",
-		borderRadius: "12px",
-		backgroundColor: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
+		padding: "16px",
+		borderRadius: "16px",
+		background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
 		color: "white",
-		fontWeight: "bold",
-		fontSize: "1rem",
+		fontWeight: 700,
+		fontSize: "1.1rem",
+		boxShadow: `0 10px 15px -3px ${theme.palette.type === 'light' ? 'rgba(124, 58, 237, 0.3)' : 'rgba(0, 0, 0, 0.3)'}`,
 		transition: "all 0.3s ease",
 		"&:hover": {
-			backgroundColor: theme.palette.type === 'light' ? "#5225b2" : "#9333ea", // slightly darker or different tone
+			background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
 			transform: "translateY(-2px)",
-			boxShadow: `0 5px 15px ${theme.palette.type === 'light' ? 'rgba(104, 46, 227, 0.4)' : 'rgba(167, 139, 250, 0.4)'}`,
+			boxShadow: `0 20px 25px -5px ${theme.palette.type === 'light' ? 'rgba(124, 58, 237, 0.4)' : 'rgba(0, 0, 0, 0.4)'}`,
 		}
 	},
 	link: {
-		color: theme.palette.type === 'light' ? "#64748b" : "#94a3b8",
-		fontSize: "0.85rem",
+		color: theme.palette.primary.main,
+		fontWeight: 600,
+		fontSize: "0.9rem",
 		textDecoration: "none",
-		transition: "color 0.3s ease",
+		transition: "all 0.2s ease",
 		"&:hover": {
-			color: theme.palette.type === 'light' ? "#0f172a" : "#f8fafc"
+			color: theme.palette.primary.dark,
+			textDecoration: "underline"
 		}
 	},
 	signUpText: {
 		marginTop: theme.spacing(5),
 		color: theme.palette.text.secondary,
-		fontSize: "0.9rem"
+		fontSize: "0.95rem"
 	},
 	signUpLink: {
-		color: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
-		fontWeight: "bold",
+		color: theme.palette.primary.main,
+		fontWeight: 800,
 		marginLeft: theme.spacing(1),
 		cursor: "pointer",
 		"&:hover": {
@@ -145,9 +161,13 @@ const useStyles = makeStyles(theme => ({
 	},
 	languageControl: {
 		position: "absolute",
-		top: 20,
-		right: 20,
-		zIndex: 10
+		top: 30,
+		right: 30,
+		zIndex: 10,
+		padding: "8px",
+		borderRadius: "12px",
+		backgroundColor: theme.palette.type === 'light' ? "rgba(255, 255, 255, 0.5)" : "rgba(30, 41, 59, 0.5)",
+		backdropFilter: "blur(8px)",
 	}
 }));
 
@@ -191,9 +211,12 @@ const Login = () => {
 				<Grow in={show} timeout={1000}>
 					<div className={classes.paper}>
 						<Fade in={show} timeout={1500}>
-							<Typography component="h1" variant="h4" className={classes.title}>
-								{i18n.t("login.title")}
-							</Typography>
+							<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+								<img src={logo} alt="logo" className={classes.logo} />
+								<Typography component="h1" variant="h4" className={classes.title}>
+									{i18n.t("login.title")}
+								</Typography>
+							</div>
 						</Fade>
 
 						<Formik
