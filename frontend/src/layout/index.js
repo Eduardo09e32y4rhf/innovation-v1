@@ -387,9 +387,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
             <NotificationsNoneOutlinedIcon />
           </IconButton>
 
-          <IconButton color="inherit">
-            <SettingsOutlined />
-          </IconButton>
+
 
           <div style={{ marginLeft: 12 }}>
             <Avatar 

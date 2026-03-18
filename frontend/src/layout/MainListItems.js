@@ -198,6 +198,8 @@ const MainListItems = (props) => {
   const { user, handleLogout } = useContext(AuthContext);
   const [connectionWarning, setConnectionWarning] = useState(false);
   const [openCampaignSubmenu, setOpenCampaignSubmenu] = useState(false);
+  const [openFlowsSubmenu, setOpenFlowsSubmenu] = useState(false);
+  const [openSettingsSubmenu, setOpenSettingsSubmenu] = useState(false);
   const [showCampaigns, setShowCampaigns] = useState(false);
   const [showKanban, setShowKanban] = useState(false);
   const [showOpenAi, setShowOpenAi] = useState(false);
@@ -541,75 +543,87 @@ const MainListItems = (props) => {
                 icon={<AnnouncementOutlinedIcon />}
               />
             )}
-            {showOpenAi && (
-              <ListItemLink
-                to="/prompts"
-                primary={i18n.t("mainDrawer.listItems.prompts")}
-                icon={<AllInclusive />}
-              />
-            )}
 
-            {showIntegrations && (
-              <ListItemLink
-                to="/queue-integration"
-                primary={i18n.t("mainDrawer.listItems.queueIntegration")}
-                icon={<DeviceHubOutlined />}
-              />
-            )}
-            <ListItemLink
-              to="/connections"
-              primary={i18n.t("mainDrawer.listItems.connections")}
-              icon={
-                <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
-                  <SyncAltIcon />
-                </Badge>
-              }
-            />
-            <ListItemLink
-              to="/files"
-              primary={i18n.t("mainDrawer.listItems.files")}
-              icon={<AttachFile />}
-            />
-            <ListItemLink
-              to="/queues"
-              primary={i18n.t("mainDrawer.listItems.queues")}
-              icon={<AccountTreeOutlinedIcon />}
-            />
-            <ListItemLink
-              to="/users"
-              primary={i18n.t("mainDrawer.listItems.users")}
-              icon={<PeopleAltOutlinedIcon />}
-            />
-            {showExternalApi && (
-              <>
-                <ListItemLink
-                  to="/messages-api"
-                  primary={i18n.t("mainDrawer.listItems.messagesAPI")}
-                  icon={<CodeRoundedIcon />}
-                />
-              </>
-            )}
+            {/* Financeiro fora do grupo */}
             <ListItemLink
               to="/financeiro"
               primary={i18n.t("mainDrawer.listItems.financeiro")}
               icon={<LocalAtmOutlinedIcon />}
             />
 
-            <ListItemLink
-              to="/settings"
-              primary={i18n.t("mainDrawer.listItems.settings")}
-              icon={<SettingsOutlinedIcon />}
-            />
-			
-			
+            {/* === CONFIGURAÇÕES (gaveta) === */}
+            <ListItem
+              button
+              onClick={() => setOpenSettingsSubmenu((prev) => !prev)}
+              className={classes.listItem}
+            >
+              <ListItemIcon className={classes.listItemIcon}>
+                <SettingsOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={i18n.t("mainDrawer.listItems.settings")}
+                className={classes.listItemText}
+              />
+              {openSettingsSubmenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </ListItem>
+            <Collapse style={{ paddingLeft: 15 }} in={openSettingsSubmenu} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+
+                {showOpenAi && (
+                  <ListItem onClick={() => history.push("/prompts")} button className={classes.listItem}>
+                    <ListItemIcon className={classes.listItemIcon}><AllInclusive /></ListItemIcon>
+                    <ListItemText primary={i18n.t("mainDrawer.listItems.prompts")} className={classes.listItemText} />
+                  </ListItem>
+                )}
+
+                {showIntegrations && (
+                  <ListItem onClick={() => history.push("/queue-integration")} button className={classes.listItem}>
+                    <ListItemIcon className={classes.listItemIcon}><DeviceHubOutlined /></ListItemIcon>
+                    <ListItemText primary={i18n.t("mainDrawer.listItems.queueIntegration")} className={classes.listItemText} />
+                  </ListItem>
+                )}
+
+                <ListItem onClick={() => history.push("/connections")} button className={classes.listItem}>
+                  <ListItemIcon className={classes.listItemIcon}>
+                    <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
+                      <SyncAltIcon />
+                    </Badge>
+                  </ListItemIcon>
+                  <ListItemText primary={i18n.t("mainDrawer.listItems.connections")} className={classes.listItemText} />
+                </ListItem>
+
+                <ListItem onClick={() => history.push("/files")} button className={classes.listItem}>
+                  <ListItemIcon className={classes.listItemIcon}><AttachFile /></ListItemIcon>
+                  <ListItemText primary={i18n.t("mainDrawer.listItems.files")} className={classes.listItemText} />
+                </ListItem>
+
+                <ListItem onClick={() => history.push("/queues")} button className={classes.listItem}>
+                  <ListItemIcon className={classes.listItemIcon}><AccountTreeOutlinedIcon /></ListItemIcon>
+                  <ListItemText primary={i18n.t("mainDrawer.listItems.queues")} className={classes.listItemText} />
+                </ListItem>
+
+                <ListItem onClick={() => history.push("/users")} button className={classes.listItem}>
+                  <ListItemIcon className={classes.listItemIcon}><PeopleAltOutlinedIcon /></ListItemIcon>
+                  <ListItemText primary={i18n.t("mainDrawer.listItems.users")} className={classes.listItemText} />
+                </ListItem>
+
+                {showExternalApi && (
+                  <ListItem onClick={() => history.push("/messages-api")} button className={classes.listItem}>
+                    <ListItemIcon className={classes.listItemIcon}><CodeRoundedIcon /></ListItemIcon>
+                    <ListItemText primary={i18n.t("mainDrawer.listItems.messagesAPI")} className={classes.listItemText} />
+                  </ListItem>
+                )}
+
+                <ListItem onClick={() => history.push("/settings")} button className={classes.listItem}>
+                  <ListItemIcon className={classes.listItemIcon}><SettingsOutlinedIcon /></ListItemIcon>
+                  <ListItemText primary="Geral" className={classes.listItemText} />
+                </ListItem>
+
+              </List>
+            </Collapse>
+
             {!collapsed && <React.Fragment>
               <Divider />
-              {/* 
-              // IMAGEM NO MENU
-              <Hidden only={['sm', 'xs']}>
-                <img style={{ width: "100%", padding: "10px" }} src={logo} alt="image" />            
-              </Hidden> 
-              */}
               <Typography style={{ fontSize: "12px", padding: "10px", textAlign: "right", fontWeight: "bold" }}>
                 8.0.1
               </Typography>
