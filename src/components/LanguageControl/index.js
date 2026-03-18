@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         padding: '4px 8px',
         borderRadius: '20px',
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
         backdropFilter: 'blur(5px)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        border: `1px solid ${theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'}`,
     },
     labelButton: {
         fontSize: '0.85rem',
@@ -23,16 +23,16 @@ const useStyles = makeStyles((theme) => ({
         padding: '4px 8px',
         borderRadius: '8px',
         transition: 'all 0.3s ease',
-        color: 'rgba(255, 255, 255, 0.5)',
+        color: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.5)',
         '&:hover': {
-            color: 'white',
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            color: theme.palette.type === 'light' ? '#0f172a' : 'white',
+            backgroundColor: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)',
         },
     },
     selectedLabel: {
-        color: 'white',
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+        color: theme.palette.type === 'light' ? '#0f172a' : 'white',
+        backgroundColor: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.2)',
+        boxShadow: theme.palette.type === 'light' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : '0 2px 8px rgba(0, 0, 0, 0.2)',
     }
 }));
 
