@@ -27,6 +27,7 @@ import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 import moment from "moment";
 import toastError from '../../errors/toastError';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from "../../assets/logo.png";
 
