@@ -214,9 +214,6 @@ const MainListItems = (props) => {
   const [searchParam] = useState("");
   const [chats, dispatch] = useReducer(reducer, []);
   const { getPlanCompany } = usePlans();
-  
-  const [openFlowsSubmenu, setOpenFlowsSubmenu] = useState(false);
-
   const socketManager = useContext(SocketContext);
 
   useEffect(() => {
