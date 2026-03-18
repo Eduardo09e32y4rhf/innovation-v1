@@ -46,7 +46,7 @@ const Copyright = () => {
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		width: "100vw",
+		width: "100%",
 		minHeight: "100vh",
 		background: theme.palette.type === 'light' ? "#f8fafc" : "#0f172a",
 		display: "flex",
@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
 		border: `1px solid ${theme.palette.type === 'light' ? "#e2e8f0" : "#334155"}`,
 		boxShadow: theme.palette.type === 'light' ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" : "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
 		width: "100%",
+		[theme.breakpoints.down("xs")]: {
+			padding: "24px 16px",
+		},
 	},
 	form: {
 		width: "100%", 

@@ -20,7 +20,8 @@ import {
 	Container,
 	Grow,
 	Fade,
-	makeStyles
+	makeStyles,
+	useTheme
 } from "@material-ui/core";
 import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
@@ -31,44 +32,29 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100vw",
-    height: "100vh",
-    background: "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+    width: "100%",
+    minHeight: "100vh",
+    background: theme.palette.type === 'light' ? "#f8fafc" : "#0f172a",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    position: "relative",
-    overflow: "hidden",
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      top: "-50%",
-      left: "-50%",
-      width: "200%",
-      height: "200%",
-      background: "radial-gradient(circle, rgba(255,0,255,0.05) 0%, transparent 50%)",
-      animation: "$bgMove 20s linear infinite",
-    }
-  },
-  "@keyframes bgMove": {
-    "0%": { transform: "rotate(0deg)" },
-    "100%": { transform: "rotate(360deg)" }
+    padding: theme.spacing(4, 0),
   },
   paper: {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    backdropFilter: "blur(15px)",
+    backgroundColor: theme.palette.type === 'light' ? "#ffffff" : "#1e293b",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: "40px",
     borderRadius: "20px",
-    border: "1px solid rgba(255, 255, 255, 0.2)",
-    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+    border: `1px solid ${theme.palette.type === 'light' ? "#e2e8f0" : "#334155"}`,
+    boxShadow: theme.palette.type === 'light' ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" : "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
     width: "100%",
-    position: "relative",
-    zIndex: 1
+    [theme.breakpoints.down("xs")]: {
+      padding: "24px 16px",
+    },
   },
   form: {
     width: "100%", 
@@ -77,57 +63,57 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 800,
     marginBottom: theme.spacing(3),
-    color: "white",
+    color: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
     letterSpacing: "1px",
     textTransform: "uppercase"
   },
   textField: {
     marginBottom: theme.spacing(2),
     "& .MuiInputBase-root": {
-      color: "white",
+      color: theme.palette.text.primary,
     },
     "& .MuiInputLabel-root": {
-      color: "rgba(255, 255, 255, 0.6)",
+      color: theme.palette.text.secondary,
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "rgba(255, 255, 255, 0.3)",
+        borderColor: theme.palette.type === 'light' ? "#cbd5e1" : "#475569",
         borderRadius: "12px",
       },
       "&:hover fieldset": {
-        borderColor: "rgba(255, 255, 255, 0.6)",
+        borderColor: theme.palette.type === 'light' ? "#94a3b8" : "#94a3b8",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#682EE3",
+        borderColor: theme.palette.primary.main,
       },
     },
     "& input:-webkit-autofill": {
-      "-webkit-box-shadow": "0 0 0 100px #24243e inset !important",
-      "-webkit-text-fill-color": "white !important",
+      "-webkit-box-shadow": `0 0 0 100px ${theme.palette.background.paper} inset !important`,
+      "-webkit-text-fill-color": `${theme.palette.text.primary} !important`,
     },
   },
   submit: {
     margin: theme.spacing(4, 0, 2),
     padding: "14px",
     borderRadius: "12px",
-    backgroundColor: "#682EE3",
+    backgroundColor: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
     color: "white",
     fontWeight: "bold",
     fontSize: "1rem",
     transition: "all 0.3s ease",
     "&:hover": {
-      backgroundColor: "#5225b2",
+      backgroundColor: theme.palette.type === 'light' ? "#5225b2" : "#9333ea",
       transform: "translateY(-2px)",
-      boxShadow: "0 5px 15px rgba(104, 46, 227, 0.4)",
+      boxShadow: `0 5px 15px ${theme.palette.type === 'light' ? 'rgba(104, 46, 227, 0.4)' : 'rgba(167, 139, 250, 0.4)'}`,
     }
   },
   link: {
-    color: "rgba(255, 255, 255, 0.6)",
+    color: theme.palette.type === 'light' ? "#64748b" : "#94a3b8",
     fontSize: "0.85rem",
     textDecoration: "none",
     transition: "color 0.3s ease",
     "&:hover": {
-      color: "white"
+      color: theme.palette.type === 'light' ? "#0f172a" : "#f8fafc"
     }
   },
   languageControl: {
@@ -142,6 +128,7 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 const ForgetPassword = () => {
   const classes = useStyles();
+  const theme = useTheme();
   const history = useHistory();
   let companyId = null;
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
@@ -341,7 +328,7 @@ const handleSendEmail = async (values) => {
                                   <InputAdornment position="end">
                                     <IconButton
                                       onClick={togglePasswordVisibility}
-                                      style={{ color: "rgba(255, 255, 255, 0.6)" }}
+                                      style={{ color: theme.palette.text.secondary }}
                                     >
                                       {showPassword ? (
                                         <VisibilityIcon />
@@ -381,7 +368,7 @@ const handleSendEmail = async (values) => {
                                   <InputAdornment position="end">
                                     <IconButton
                                       onClick={toggleConfirmPasswordVisibility}
-                                      style={{ color: "rgba(255, 255, 255, 0.6)" }}
+                                      style={{ color: theme.palette.text.secondary }}
                                     >
                                       {showConfirmPassword ? (
                                         <VisibilityIcon />
