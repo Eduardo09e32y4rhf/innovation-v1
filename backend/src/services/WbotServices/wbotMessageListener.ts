@@ -483,7 +483,7 @@ const getContactMessage = async (msg: proto.IWebMessageInfo, wbot: Session) => {
 const downloadMedia = async (msg: proto.IWebMessageInfo) => {
   let buffer;
   try {
-    buffer = await downloadMediaMessage(msg, "buffer", {});
+    buffer = await downloadMediaMessage(msg as any, "buffer", {});
   } catch (err) {
     console.error("Erro ao baixar mídia:", err);
 
@@ -893,7 +893,7 @@ export const verifyMediaMessage = async (
   try {
     await writeFileAsync(
       join(__dirname, "..", "..", "..", "public", media.filename),
-      Buffer.from(media.data, 'base64')
+      Buffer.from(media.data as any, 'base64') as any
     );
   } catch (err) {
     Sentry.captureException(err);
@@ -2851,13 +2851,13 @@ const handleMessage = async (
 
     if (whatsapp.queues.length == 1 && ticket.queue) {
       if (ticket.chatbot && !msg.key.fromMe) {
-        await handleChartbot(ticket, msg, wbot);
+        await handleChartbot(ticket, msg as any, wbot);
       }
     }
 
     if (whatsapp.queues.length > 1 && ticket.queue) {
       if (ticket.chatbot && !msg.key.fromMe) {
-        await handleChartbot(ticket, msg, wbot, dontReadTheFirstQuestion);
+        await handleChartbot(ticket, msg as any, wbot, dontReadTheFirstQuestion);
       }
     }
 
@@ -2944,7 +2944,7 @@ const filterMessages = (msg: WAMessage): boolean => {
       WAMessageStubType.E2E_DEVICE_CHANGED,
       WAMessageStubType.E2E_IDENTITY_CHANGED,
       WAMessageStubType.CIPHERTEXT
-    ].includes(msg.messageStubType as WAMessageStubType)
+    ].includes(msg.messageStubType as any)
   )
     return false;
 

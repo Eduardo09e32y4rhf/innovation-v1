@@ -68,6 +68,7 @@ class MockQueue {
   clean() { return Promise.resolve(); }
   getJobCounts() { return Promise.resolve({}); }
   getJobs() { return Promise.resolve([]); }
+  getJob(id: any) { return Promise.resolve({ remove: () => Promise.resolve() }); }
 }
 
 const QueueClass = connection === "mock" ? MockQueue : BullQueue;

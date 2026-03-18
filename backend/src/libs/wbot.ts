@@ -1,15 +1,23 @@
 import * as Sentry from "@sentry/node";
-import makeWASocket, {
+import * as Baileys from "@whiskeysockets/baileys";
+const {
+  default: makeWASocket,
+  makeInMemoryStore,
+  isJidBroadcast,
+  getContentType,
+  jidNormalizedUser,
+  downloadMediaMessage,
+  extractMessageContent
+} = Baileys as any;
+
+import {
   WASocket,
   Browsers,
   DisconnectReason,
   fetchLatestBaileysVersion,
   makeCacheableSignalKeyStore,
-  makeInMemoryStore,
-  isJidBroadcast,
   CacheStore
 } from "@whiskeysockets/baileys";
-import makeWALegacySocket from "@whiskeysockets/baileys";
 import P from "pino";
 
 import Whatsapp from "../models/Whatsapp";
