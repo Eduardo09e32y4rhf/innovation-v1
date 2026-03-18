@@ -93,6 +93,7 @@ const FlowBuilder = () => {
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
+  const [, dispatch] = useReducer(reducer, []);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchParam, setSearchParam] = useState("");
   const [webhooks, setWebhooks] = useState([]);
