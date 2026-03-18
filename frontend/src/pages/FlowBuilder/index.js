@@ -95,20 +95,17 @@ const FlowBuilder = () => {
   const [loading, setLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchParam, setSearchParam] = useState("");
-  const [contacts, dispatch] = useReducer(reducer, []);
   const [webhooks, setWebhooks] = useState([]);
   const [selectedContactId, setSelectedContactId] = useState(null);
   const [selectedWebhookName, setSelectedWebhookName] = useState(null);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [newTicketModalOpen, setNewTicketModalOpen] = useState(false);
-  const [contactTicket, setContactTicket] = useState({});
   const [deletingContact, setDeletingContact] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmDuplicateOpen, setConfirmDuplicateOpen] = useState(false);
 
   const [hasMore, setHasMore] = useState(false);
   const [reloadData, setReloadData] = useState(false);
-  const { user, socket } = useContext(AuthContext);
 
   useEffect(() => {
     dispatch({ type: "RESET" });
@@ -240,7 +237,6 @@ const FlowBuilder = () => {
     <MainContainer className={classes.mainContainer}>
       <NewTicketModal
         modalOpen={newTicketModalOpen}
-        initialContact={contactTicket}
         onClose={(ticket) => {
           handleCloseOrOpenTicket(ticket);
         }}

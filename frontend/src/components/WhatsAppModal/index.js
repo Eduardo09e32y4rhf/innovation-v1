@@ -85,7 +85,6 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
 
   const [whatsApp, setWhatsApp] = useState(initialState);
   const [selectedQueueIds, setSelectedQueueIds] = useState([]);
-  const [queues, setQueues] = useState([]);
   const [selectedQueueId, setSelectedQueueId] = useState(null)
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [prompts, setPrompts] = useState([]);
@@ -129,16 +128,6 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     })();
   }, [whatsAppId]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await api.get("/queue");
-        setQueues(data);
-      } catch (err) {
-        toastError(err);
-      }
-    })();
-  }, []);
 
   const handleSaveWhatsApp = async (values) => {
     const whatsappData = {

@@ -2,7 +2,6 @@ import React from 'react';
 import { useFormikContext } from 'formik';
 import { Typography, Grid } from '@material-ui/core';
 import ShippingDetails from './ShippingDetails';
-import PaymentDetails from './PaymentDetails';
 import { i18n } from '../../../translate/i18n';
 
 export default function ReviewOrder() {

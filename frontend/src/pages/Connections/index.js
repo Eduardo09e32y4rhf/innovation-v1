@@ -37,6 +37,7 @@ import api from "../../services/api";
 import WhatsAppModal from "../../components/WhatsAppModal";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import QrcodeModal from "../../components/QrcodeModal";
+import PairingCodeModal from "../../components/PairingCodeModal";
 import { i18n } from "../../translate/i18n";
 import { WhatsAppsContext } from "../../context/WhatsApp/WhatsAppsContext";
 import toastError from "../../errors/toastError";
@@ -102,6 +103,7 @@ const Connections = () => {
 	const { whatsApps, loading } = useContext(WhatsAppsContext);
 	const [whatsAppModalOpen, setWhatsAppModalOpen] = useState(false);
 	const [qrModalOpen, setQrModalOpen] = useState(false);
+	const [pairingCodeModalOpen, setPairingCodeModalOpen] = useState(false);
 	const [selectedWhatsApp, setSelectedWhatsApp] = useState(null);
 	const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 	const confirmationModalInitialState = {
@@ -150,6 +152,16 @@ const Connections = () => {
 		setSelectedWhatsApp(null);
 		setQrModalOpen(false);
 	}, [setQrModalOpen, setSelectedWhatsApp]);
+
+	const handleOpenPairingCodeModal = whatsApp => {
+		setSelectedWhatsApp(whatsApp);
+		setPairingCodeModalOpen(true);
+	};
+
+	const handleClosePairingCodeModal = useCallback(() => {
+		setSelectedWhatsApp(null);
+		setPairingCodeModalOpen(false);
+	}, [setPairingCodeModalOpen, setSelectedWhatsApp]);
 
 	const handleEditWhatsApp = whatsApp => {
 		setSelectedWhatsApp(whatsApp);
@@ -202,14 +214,24 @@ const Connections = () => {
 		return (
 			<>
 				{whatsApp.status === "qrcode" && (
-					<Button
-						size="small"
-						variant="contained"
-						color="primary"
-						onClick={() => handleOpenQrModal(whatsApp)}
-					>
-						{i18n.t("connections.buttons.qrcode")}
-					</Button>
+					<div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
+						<Button
+							size="small"
+							variant="contained"
+							color="primary"
+							onClick={() => handleOpenQrModal(whatsApp)}
+						>
+							{i18n.t("connections.buttons.qrcode")}
+						</Button>
+						<Button
+							size="small"
+							variant="outlined"
+							color="primary"
+							onClick={() => handleOpenPairingCodeModal(whatsApp)}
+						>
+							Código no Whats
+						</Button>
+					</div>
 				)}
 				{whatsApp.status === "DISCONNECTED" && (
 					<>
@@ -306,6 +328,11 @@ const Connections = () => {
 			<QrcodeModal
 				open={qrModalOpen}
 				onClose={handleCloseQrModal}
+				whatsAppId={!whatsAppModalOpen && selectedWhatsApp?.id}
+			/>
+			<PairingCodeModal
+				open={pairingCodeModalOpen}
+				onClose={handleClosePairingCodeModal}
 				whatsAppId={!whatsAppModalOpen && selectedWhatsApp?.id}
 			/>
 			<WhatsAppModal

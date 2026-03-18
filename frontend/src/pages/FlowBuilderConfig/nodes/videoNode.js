@@ -1,8 +1,6 @@
 import {
   ContentCopy,
   Delete,
-  Image,
-  Message,
   Videocam
 } from "@mui/icons-material";
 import React, { memo } from "react";

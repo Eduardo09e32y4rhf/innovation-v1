@@ -3,7 +3,6 @@ import {
   CallSplit,
   ContentCopy,
   Delete,
-  Message
 } from "@mui/icons-material";
 import React, { memo } from "react";
 

@@ -1,13 +1,11 @@
 import React, {
   useState,
   useEffect,
-  useReducer,
   useContext,
   useCallback,
 } from "react";
 import { SiOpenai } from "react-icons/si";
 import typebotIcon from "../../assets/typebot-ico.png";
-import { HiOutlinePuzzle } from "react-icons/hi";
 
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
@@ -35,8 +33,6 @@ import api from "../../services/api";
 
 import MainHeader from "../../components/MainHeader";
 import Title from "../../components/Title";
-import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
-import MainContainer from "../../components/MainContainer";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import {
@@ -59,13 +55,10 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
-  onElementsRemove,
-  useReactFlow,
 } from "react-flow-renderer";
 
 import FlowBuilderAddTextModal from "../../components/FlowBuilderAddTextModal";
 import FlowBuilderIntervalModal from "../../components/FlowBuilderIntervalModal";
-import FlowBuilderConditionModal from "../../components/FlowBuilderConditionModal";
 import FlowBuilderMenuModal from "../../components/FlowBuilderMenuModal";
 import FlowBuilderAddImgModal from "../../components/FlowBuilderAddImgModal";
 import FlowBuilderTicketModal from "../../components/FlowBuilderAddTicketModal";
@@ -81,13 +74,8 @@ import {
   AccessTime,
   CallSplit,
   DynamicFeed,
-  Image,
-  ImportExport,
   LibraryBooks,
-  Message,
-  MicNone,
   RocketLaunch,
-  Videocam,
 } from "@mui/icons-material";
 
 import { useNodeStorage } from "../../stores/useNodeStorage";
@@ -152,16 +140,20 @@ const initialEdges = [];
 
 const FlowBuilderConfig = () => {
   const classes = useStyles();
+  // eslint-disable-next-line no-unused-vars
   const history = useHistory();
   const { id } = useParams();
 
   const storageItems = useNodeStorage();
 
+  // eslint-disable-next-line no-unused-vars
   const { user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [pageNumber, setPageNumber] = useState(1);
   const [dataNode, setDataNode] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [hasMore, setHasMore] = useState(false);
   const [modalAddText, setModalAddText] = useState(null);
   const [modalAddInterval, setModalAddInterval] = useState(false);
@@ -386,6 +378,7 @@ const FlowBuilderConfig = () => {
     addNode("interval", data);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const conditionAdd = (data) => {
     addNode("condition", data);
   };
@@ -712,6 +705,7 @@ const FlowBuilderConfig = () => {
       fetchContacts();
     }, 500);
     return () => clearTimeout(delayDebounceFn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
@@ -748,6 +742,7 @@ const FlowBuilderConfig = () => {
       storageItems.setNodesStorage("");
       storageItems.setAct("idle");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storageItems.action]);
 
   return (

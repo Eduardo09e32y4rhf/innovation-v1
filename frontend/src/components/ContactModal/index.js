@@ -22,7 +22,6 @@ import { i18n } from "../../translate/i18n";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
 
-import InputMask from 'react-input-mask';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -54,13 +53,6 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const MaskedTextField = ({ field, form, ...props }) => {
-	return (
-	  <InputMask {...field} {...props}>
-		{(inputProps) => <TextField {...inputProps} />}
-	  </InputMask>
-	);
-};
 
 const ContactSchema = Yup.object().shape({
 	name: Yup.string()

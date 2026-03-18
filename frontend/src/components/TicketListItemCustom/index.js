@@ -5,7 +5,7 @@ import { parseISO, format, isSameDay } from "date-fns";
 import clsx from "clsx";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { green, grey, red, blue } from "@material-ui/core/colors";
+import { green, grey, blue } from "@material-ui/core/colors";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -27,14 +27,7 @@ import { TicketsContext } from "../../context/Tickets/TicketsContext";
 import toastError from "../../errors/toastError";
 import { v4 as uuidv4 } from "uuid";
 
-import RoomIcon from '@material-ui/icons/Room';
-import WhatsAppIcon from "@material-ui/icons/WhatsApp";
-import AndroidIcon from "@material-ui/icons/Android";
-import VisibilityIcon from "@material-ui/icons/Visibility";
 import TicketMessagesDialog from "../TicketMessagesDialog";
-import DoneIcon from '@material-ui/icons/Done';
-import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
-import contrastColor from "../../helpers/contrastColor";
 import ContactTag from "../ContactTag";
 
 const useStyles = makeStyles((theme) => ({
@@ -136,11 +129,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
 
-  acceptButton: {
-    position: "absolute",
-    left: "50%",
-  },
-
 
   ticketQueueColor: {
     flex: "none",
@@ -183,16 +171,13 @@ const useStyles = makeStyles((theme) => ({
 
   }
 }));
-  {/*PLW DESIGN INSERIDO O dentro do const handleChangeTab*/}
+  // PLW DESIGN INSERIDO O dentro do const handleChangeTab
   const TicketListItemCustom = ({ ticket }) => {
   const classes = useStyles();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [ticketUser, setTicketUser] = useState(null);
-  const [ticketQueueName, setTicketQueueName] = useState(null);
-  const [ticketQueueColor, setTicketQueueColor] = useState(null);
   const [tag, setTag] = useState([]);
-  const [whatsAppName, setWhatsAppName] = useState(null);
 
   const [openTicketMessageDialog, setOpenTicketMessageDialog] = useState(false);
   const { ticketId } = useParams();
@@ -205,12 +190,6 @@ const useStyles = makeStyles((theme) => ({
     if (ticket.userId && ticket.user) {
       setTicketUser(ticket.user?.name?.toUpperCase());
     }
-    setTicketQueueName(ticket.queue?.name?.toUpperCase());
-    setTicketQueueColor(ticket.queue?.color);
-
-    if (ticket.whatsappId && ticket.whatsapp) {
-      setWhatsAppName(ticket.whatsapp.name?.toUpperCase());
-    }
 
     setTag(ticket?.tags);
 
@@ -220,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  {/*CÓDIGO NOVO SAUDAÇÃO*/}
+  // CÓDIGO NOVO SAUDAÇÃO
   const handleCloseTicket = async (id) => {
     setTag(ticket?.tags);
     setLoading(true);
@@ -316,7 +295,7 @@ const useStyles = makeStyles((theme) => ({
             
         }
     };
-	{/*CÓDIGO NOVO SAUDAÇÃO*/}
+	// CÓDIGO NOVO SAUDAÇÃO
 
   const handleSelectTicket = (ticket) => {
     const code = uuidv4();

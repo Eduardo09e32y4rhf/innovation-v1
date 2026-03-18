@@ -79,6 +79,7 @@ const NotificationsPopOver = (volume) => {
 		}
 	  
 		fetchSettings();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -103,6 +104,7 @@ const NotificationsPopOver = (volume) => {
 		}
 
 		processNotifications();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tickets]);
 
 	useEffect(() => {

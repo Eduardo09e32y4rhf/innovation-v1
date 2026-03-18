@@ -23,4 +23,12 @@ whatsappSessionRoutes.delete(
   WhatsAppSessionController.remove
 );
 
+// Nova rota: Conectar via Pairing Code (código no WhatsApp)
+whatsappSessionRoutes.post(
+  "/whatsappsession/:whatsappId/pairing-code",
+  isAuth,
+  WhatsAppSessionController.requestPairingCode
+);
+
 export default whatsappSessionRoutes;
+

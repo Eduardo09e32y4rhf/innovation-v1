@@ -78,6 +78,7 @@ const TransferTicketModalCustom = ({ modalOpen, onClose, ticketid }) => {
       setLoading(false);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

@@ -2,13 +2,11 @@ import {
   ArrowForwardIos,
   ContentCopy,
   Delete,
-  ConfirmationNumber,
 } from "@mui/icons-material";
 import React, { memo } from "react";
-import TextField from "@mui/material/TextField";
 import { useNodeStorage } from "../../../stores/useNodeStorage";
 import { Handle } from "react-flow-renderer";
-import { Typography, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import typebotIcon from "../../../assets/typebot-ico.png";
 
 export default memo(({ data, isConnectable, id }) => {

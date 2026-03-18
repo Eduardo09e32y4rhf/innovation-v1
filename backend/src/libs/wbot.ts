@@ -64,7 +64,11 @@ export const removeWbot = async (
   }
 };
 
-export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
+export const initWASocket = async (
+  whatsapp: Whatsapp,
+  usePairingCode = false,
+  phoneNumber?: string
+): Promise<Session> => {
   return new Promise(async (resolve, reject) => {
     try {
       (async () => {
@@ -105,12 +109,36 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
             keys: makeCacheableSignalKeyStore(state.keys, logger),
           },
           version,
-          // defaultQueryTimeoutMs: 60000,
-          // retryRequestDelayMs: 250,
-          // keepAliveIntervalMs: 1000 * 60 * 10 * 3,
           msgRetryCounterCache,
           shouldIgnoreJid: jid => isJidBroadcast(jid),
         });
+
+        // Solicitar pairing code se solicitado
+        if (usePairingCode && phoneNumber && !state.creds.registered) {
+          wsocket.ev.on("connection.update", async ({ connection }) => {
+            if (connection === "open" || wsocket.authState?.creds?.me?.id) return;
+          });
+          // Aguarda o socket estabelecer a conexão inicial (open handshake)
+          setTimeout(async () => {
+            try {
+              if (!wsocket.authState?.creds?.registered) {
+                const phone = phoneNumber.replace(/[^0-9]/g, "");
+                const code = await wsocket.requestPairingCode(phone);
+                logger.info(`Pairing code for ${name}: ${code}`);
+                const io = getIO();
+                io.to(`company-${whatsapp.companyId}-mainchannel`).emit(
+                  `company-${whatsapp.companyId}-whatsappSession`,
+                  {
+                    action: "pairingCode",
+                    session: { id: whatsapp.id, pairingCode: code }
+                  }
+                );
+              }
+            } catch (err) {
+              logger.error(`Error requesting pairing code: ${err}`);
+            }
+          }, 3000);
+        }
 
         // wsocket = makeWASocket({
         //   version,
