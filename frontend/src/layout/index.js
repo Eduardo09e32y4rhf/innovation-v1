@@ -42,7 +42,9 @@ import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import LanguageControl from "../components/LanguageControl";
-import { LanguageOutlined } from "@material-ui/icons";
+import { LanguageOutlined, SettingsOutlined } from "@material-ui/icons";
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import Avatar from "@material-ui/core/Avatar";
 
 const drawerWidth = 240;
 
@@ -50,37 +52,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     height: "100vh",
-    [theme.breakpoints.down("sm")]: {
-      height: "calc(100vh - 56px)",
-    },
-    backgroundColor: theme.palette.fancyBackground,
-    '& .MuiButton-outlinedPrimary': {
-      color: theme.mode === 'light' ? '#FFF' : '#FFF',
-	  //backgroundColor: theme.mode === 'light' ? '#682ee2' : '#682ee2',
-	backgroundColor: theme.mode === 'light' ? theme.palette.primary.main : '#1c1c1c',
-      //border: theme.mode === 'light' ? '1px solid rgba(0 124 102)' : '1px solid rgba(255, 255, 255, 0.5)',
-    },
-    '& .MuiTab-textColorPrimary.Mui-selected': {
-      color: theme.mode === 'light' ? 'Primary' : '#FFF',
-    }
-  },
-  avatar: {
-    width: "100%",
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-    color: theme.palette.dark.main,
-    background: theme.palette.barraSuperior,
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    minHeight: "35px",
-    [theme.breakpoints.down("sm")]: {
-      height: "35px"
-    }
+    backgroundColor: theme.palette.type === 'light' ? '#f8fafc' : '#0f172a',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -88,6 +60,11 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)',
+    backdropFilter: "blur(12px)",
+    color: theme.palette.text.primary,
+    boxShadow: "none",
+    borderBottom: `1px solid ${theme.palette.type === 'light' ? '#f1f5f9' : '#1e293b'}`,
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -96,85 +73,83 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    [theme.breakpoints.down("sm")]: {
-      display: "none"
-    }
   },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: "none",
-  },
-  title: {
-    flexGrow: 1,
-    fontSize: 14,
-    color: "white",
+  toolbar: {
+    paddingRight: 24,
+    minHeight: 64,
   },
   drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    [theme.breakpoints.down("sm")]: {
-      width: "100%"
-    },
-    ...theme.scrollbarStylesSoft
+    backgroundColor: theme.palette.type === 'light' ? '#ffffff' : '#0f172a',
+    borderRight: `1px solid ${theme.palette.type === 'light' ? '#f1f5f9' : '#1e293b'}`,
+    boxShadow: "none",
+    overflowX: "hidden",
+    position: "relative",
+    ...theme.scrollbarStylesSoft,
   },
   drawerPaperClose: {
-    overflowX: "hidden",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9),
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "100%"
-    }
-  },
-  appBarSpacer: {
-    minHeight: "48px",
+    width: theme.spacing(9),
+    overflowX: "hidden",
   },
   content: {
     flex: 1,
+    height: "100vh",
     overflow: "auto",
-
+    padding: theme.spacing(3),
   },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+  appBarSpacer: {
+    minHeight: 64,
   },
-  paper: {
-    padding: theme.spacing(2),
+  title: {
+    flexGrow: 1,
+    fontSize: "1.25rem",
+    fontWeight: 700,
+    color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main, // Innovation Violet / adapted
     display: "flex",
-    overflow: "auto",
-    flexDirection: "column"
+    alignItems: "center",
+  },
+  logo: {
+    width: "100%",
+    height: "100%",
+    maxHeight: 32,
+    objectFit: "contain",
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: "0 24px",
+    minHeight: 64,
+  },
+  greeting: {
+    fontSize: "0.875rem",
+    color: theme.palette.type === 'light' ? "#64748b" : "#cbd5e1",
+    marginBottom: theme.spacing(3),
+    "& span": {
+      fontWeight: 600,
+      color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main,
+    },
+  },
+  avatar: {
+    width: 32,
+    height: 32,
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    backgroundColor: "#682ee2",
+    color: "#ffffff",
   },
   containerWithScroll: {
     flex: 1,
-    padding: theme.spacing(1),
-    overflowY: "scroll",
-    ...theme.scrollbarStyles,
-  },
-  NotificationsPopOver: {
-    // color: theme.barraSuperior.secondary.main,
-  },
-  logo: {
-    width: "80%",
-    height: "auto",
-    maxWidth: 180,
-    [theme.breakpoints.down("sm")]: {
-      width: "auto",
-      height: "80%",
-      maxWidth: 180,
-    },
-    logo: theme.logo
+    overflowY: "auto",
+    ...theme.scrollbarStylesSoft,
   },
 }));
 
@@ -200,54 +175,6 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   // Languages
   const [anchorElLanguage, setAnchorElLanguage] = useState(null);
   const [menuLanguageOpen, setMenuLanguageOpen] = useState(false);
-
-
-  //################### CODIGOS DE TESTE #########################################
-  // useEffect(() => {
-  //   navigator.getBattery().then((battery) => {
-  //     console.log(`Battery Charging: ${battery.charging}`);
-  //     console.log(`Battery Level: ${battery.level * 100}%`);
-  //     console.log(`Charging Time: ${battery.chargingTime}`);
-  //     console.log(`Discharging Time: ${battery.dischargingTime}`);
-  //   })
-  // }, []);
-
-  // useEffect(() => {
-  //   const geoLocation = navigator.geolocation
-
-  //   geoLocation.getCurrentPosition((position) => {
-  //     let lat = position.coords.latitude;
-  //     let long = position.coords.longitude;
-
-  //     console.log('latitude: ', lat)
-  //     console.log('longitude: ', long)
-  //   })
-  // }, []);
-
-  // useEffect(() => {
-  //   const nucleos = window.navigator.hardwareConcurrency;
-
-  //   console.log('Nucleos: ', nucleos)
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log('userAgent', navigator.userAgent)
-  //   if (
-  //     navigator.userAgent.match(/Android/i)
-  //     || navigator.userAgent.match(/webOS/i)
-  //     || navigator.userAgent.match(/iPhone/i)
-  //     || navigator.userAgent.match(/iPad/i)
-  //     || navigator.userAgent.match(/iPod/i)
-  //     || navigator.userAgent.match(/BlackBerry/i)
-  //     || navigator.userAgent.match(/Windows Phone/i)
-  //   ) {
-  //     console.log('é mobile ', true) //celular
-  //   }
-  //   else {
-  //     console.log('não é mobile: ', false) //nao é celular
-  //   }
-  // }, []);
-  //##############################################################################
 
   const socketManager = useContext(SocketContext);
 
@@ -361,15 +288,14 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <img src={logo} className={classes.logo} alt="logo" />
+          <Typography variant="h6" className={classes.title} style={{ marginLeft: 12, fontSize: "1.25rem" }}>
+            Innovation
+          </Typography>
         </div>
-        <Divider />
         <List className={classes.containerWithScroll}>
           <MainListItems drawerClose={drawerClose} collapsed={!drawerOpen} />
         </List>
-        <Divider />
       </Drawer>
       <UserModal
         open={userModalOpen}
@@ -377,14 +303,13 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         userId={user?.id}
       />
       <AppBar
-        position="absolute"
+        position="fixed"
         className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
-        color="primary"
+        elevation={0}
       >
         <Toolbar variant="dense" className={classes.toolbar}>
           <IconButton
             edge="start"
-            variant="contained"
             aria-label="open drawer"
             onClick={() => setDrawerOpen(!drawerOpen)}
             className={clsx(
@@ -398,20 +323,10 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           <Typography
             component="h2"
             variant="h6"
-            color="inherit"
             noWrap
             className={classes.title}
           >
-            {/* {greaterThenSm && user?.profile === "admin" && getDateAndDifDays(user?.company?.dueDate).difData < 7 ? ( */}
-            {greaterThenSm && user?.profile === "admin" && user?.company?.dueDate ? (
-              <>
-                {i18n.t("mainDrawer.appBar.greeting.hello")} <b>{user.name}</b>, {i18n.t("mainDrawer.appBar.greeting.welcome")} <b>{user?.company?.name}</b>! ({i18n.t("mainDrawer.appBar.greeting.active")} {dateToClient(user?.company?.dueDate)})
-              </>
-            ) : (
-              <>
-                {i18n.t("mainDrawer.appBar.greeting.hello")} <b>{user.name}</b>, {i18n.t("mainDrawer.appBar.greeting.welcome")} <b>{user?.company?.name}</b>!
-              </>
-            )}
+            {/* Title can be empty or dynamically set per page */}
           </Typography>
           
           <div>
@@ -421,8 +336,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handlemenuLanguage}
-                variant="contained"
-                style={{ color: "white",marginRight:10 }}
+                style={{ color: theme.palette.text.primary, marginRight:10 }}
               />
             </IconButton>
             <Menu
@@ -447,7 +361,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           </div>          
 
           <IconButton edge="start" onClick={toggleColorMode}>
-            {theme.mode === 'dark' ? <Brightness7Icon style={{ color: "white" }} /> : <Brightness4Icon style={{ color: "white" }} />}
+            {theme.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
 
           <NotificationsVolume
@@ -460,7 +374,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
             aria-label={i18n.t("mainDrawer.appBar.refresh")}
             color="inherit"
           >
-            <CachedIcon style={{ color: "white" }} />
+            <CachedIcon />
           </IconButton>
 
           {user.id && <NotificationsPopOver volume={volume} />}
@@ -469,17 +383,22 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
           <ChatPopover />
 
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+          <IconButton color="inherit">
+            <NotificationsNoneOutlinedIcon />
+          </IconButton>
+
+          <IconButton color="inherit">
+            <SettingsOutlined />
+          </IconButton>
+
+          <div style={{ marginLeft: 12 }}>
+            <Avatar 
+              className={classes.avatar}
               onClick={handleMenu}
-              variant="contained"
-              style={{ color: "white" }}
+              style={{ cursor: "pointer" }}
             >
-              <AccountCircle />
-            </IconButton>
+              {user.name ? user.name.substring(0, 2).toUpperCase() : "IN"}
+            </Avatar>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -507,7 +426,9 @@ const LoggedInLayout = ({ children, themeToggle }) => {
       </AppBar>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-
+        <Typography className={classes.greeting}>
+          Olá <span>{user.name}</span>, bem-vindo de volta!
+        </Typography>
         {children ? children : null}
       </main>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import qs from "query-string";
+import qs from 'query-string'
+import LanguageControl from "../../components/LanguageControl";
 
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -7,280 +8,157 @@ import { Link as RouterLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 import usePlans from "../../hooks/usePlans";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import InputMask from "react-input-mask";
 import {
+	Button,
+	CssBaseline,
+	TextField,
+	Link,
+	Grid,
+	Box,
 	FormControl,
 	InputLabel,
 	MenuItem,
 	Select,
-	IconButton,
-	Menu
+	Typography,
+	Container,
+	Grow,
+	Fade,
+	makeStyles,
+	useTheme
 } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import logo from "../../assets/logo.png";
+import InputMask from 'react-input-mask';
 import { i18n } from "../../translate/i18n";
-import { LanguageOutlined } from "@material-ui/icons";
-import LanguageControl from "../../components/LanguageControl";
 
 import { openApi } from "../../services/api";
 import toastError from "../../errors/toastError";
 import moment from "moment";
-
 const Copyright = () => {
 	return (
-		<Typography variant="body2" align="center" style={{ color: "#9ca3af", fontSize: "0.78rem" }}>
-			{"© "}
-			<Link style={{ color: "#1d4ed8", textDecoration: "none" }} href="#">
-				Innovation IA
+		<Typography variant="body2" color="textSecondary" align="center">
+			{"Copyright © "}
+			<Link color="inherit" href="#">
+				PLW
 			</Link>{" "}
-			{new Date().getFullYear()}
+		   {new Date().getFullYear()}
+			{"."}
 		</Typography>
 	);
 };
 
+
 const useStyles = makeStyles(theme => ({
 	root: {
-		width: "100vw",
+		width: "100%",
 		minHeight: "100vh",
-		background: "linear-gradient(135deg, #f0f4ff 0%, #e8eeff 40%, #f5f7ff 100%)",
+		background: theme.palette.type === 'light' ? "#f8fafc" : "#0f172a",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
-		padding: "24px 0",
-		position: "relative",
-		fontFamily: "'Inter', 'Segoe UI', sans-serif",
-	},
-	decorCircle1: {
-		position: "fixed",
-		width: 400,
-		height: 400,
-		borderRadius: "50%",
-		background: "radial-gradient(circle, rgba(29,78,216,0.07) 0%, rgba(29,78,216,0) 70%)",
-		top: "-80px",
-		right: "-60px",
-		pointerEvents: "none",
-	},
-	decorCircle2: {
-		position: "fixed",
-		width: 300,
-		height: 300,
-		borderRadius: "50%",
-		background: "radial-gradient(circle, rgba(99,102,241,0.06) 0%, rgba(99,102,241,0) 70%)",
-		bottom: "-50px",
-		left: "-40px",
-		pointerEvents: "none",
+		textAlign: "center",
+		padding: theme.spacing(4, 0),
 	},
 	paper: {
-		backgroundColor: "#ffffff",
+		backgroundColor: theme.palette.type === 'light' ? "#ffffff" : "#1e293b",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: "40px 40px 32px",
+		padding: "40px",
 		borderRadius: "20px",
-		boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05), 0 20px 60px -10px rgba(29,78,216,0.12), 0 0 0 1px rgba(29,78,216,0.06)",
-		position: "relative",
-		overflow: "hidden",
-		animation: "$fadeInUp 0.5s ease",
-	},
-	"@keyframes fadeInUp": {
-		from: { opacity: 0, transform: "translateY(20px)" },
-		to: { opacity: 1, transform: "translateY(0)" },
-	},
-	accentBar: {
-		position: "absolute",
-		top: 0,
-		left: 0,
-		right: 0,
-		height: 4,
-		background: "linear-gradient(90deg, #1d4ed8, #4f46e5, #1d4ed8)",
-		backgroundSize: "200% 100%",
-		animation: "$shimmer 3s linear infinite",
-	},
-	"@keyframes shimmer": {
-		"0%": { backgroundPosition: "0% 0%" },
-		"100%": { backgroundPosition: "200% 0%" },
-	},
-	logoContainer: {
-		marginBottom: 20,
-		padding: "8px",
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
-		position: "relative",
-		"&::after": {
-			content: '""',
-			position: "absolute",
-			width: "120%",
-			height: "50%",
-			bottom: "-10px",
-			background: "radial-gradient(ellipse at center, rgba(29,78,216,0.15) 0%, rgba(255,255,255,0) 70%)",
-			zIndex: -1,
-			filter: "blur(5px)",
-		}
-	},
-	logoText: {
-		fontSize: "2.4rem",
-		fontWeight: 900,
-		letterSpacing: "-1.5px",
-		background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)",
-		WebkitBackgroundClip: "text",
-		WebkitTextFillColor: "transparent",
-		textTransform: "uppercase",
-		margin: 0,
-		filter: "drop-shadow(0px 4px 6px rgba(29,78,216,0.15))",
-	},
-	title: {
-		fontSize: "1.35rem",
-		fontWeight: 700,
-		color: "#111827",
-		marginBottom: 4,
-		letterSpacing: "-0.3px",
-	},
-	subtitle: {
-		fontSize: "0.875rem",
-		color: "#6b7280",
-		marginBottom: 20,
+		border: `1px solid ${theme.palette.type === 'light' ? "#e2e8f0" : "#334155"}`,
+		boxShadow: theme.palette.type === 'light' ? "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" : "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
+		width: "100%",
+		[theme.breakpoints.down("xs")]: {
+			padding: "24px 16px",
+		},
 	},
 	form: {
-		width: "100%",
-		marginTop: theme.spacing(1),
+		width: "100%", 
+		marginTop: theme.spacing(3),
+	},
+	title: {
+		fontWeight: 800,
+		marginBottom: theme.spacing(3),
+		color: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
+		letterSpacing: "1px",
+		textTransform: "uppercase"
 	},
 	textField: {
+		"& .MuiInputBase-root": {
+			color: theme.palette.text.primary,
+		},
+		"& .MuiInputLabel-root": {
+			color: theme.palette.text.secondary,
+		},
 		"& .MuiOutlinedInput-root": {
-			borderRadius: 10,
-			backgroundColor: "#f9fafb",
-			"&:hover .MuiOutlinedInput-notchedOutline": {
-				borderColor: "#93c5fd",
+			"& fieldset": {
+				borderColor: theme.palette.type === 'light' ? "#cbd5e1" : "#475569",
+				borderRadius: "12px",
 			},
-			"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-				borderColor: "#1d4ed8",
-				borderWidth: 2,
+			"&:hover fieldset": {
+				borderColor: theme.palette.type === 'light' ? "#94a3b8" : "#94a3b8",
+			},
+			"&.Mui-focused fieldset": {
+				borderColor: theme.palette.primary.main,
 			},
 		},
-		"& .MuiInputLabel-outlined": {
-			color: "#6b7280",
+		"& input:-webkit-autofill": {
+			"-webkit-box-shadow": `0 0 0 100px ${theme.palette.background.paper} inset !important`,
+			"-webkit-text-fill-color": `${theme.palette.text.primary} !important`,
 		},
-		"& .MuiInputLabel-outlined.Mui-focused": {
-			color: "#1d4ed8",
-		},
-		marginBottom: 10,
 	},
-	selectControl: {
-		marginBottom: 10,
-		"& .MuiOutlinedInput-root": {
-			borderRadius: 10,
-			backgroundColor: "#f9fafb",
-			"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-				borderColor: "#1d4ed8",
-				borderWidth: 2,
-			},
+	select: {
+		color: theme.palette.text.primary,
+		textAlign: "left",
+		"& .MuiOutlinedInput-notchedOutline": {
+			borderColor: theme.palette.type === 'light' ? "#cbd5e1" : "#475569",
+			borderRadius: "12px",
 		},
-		"& .MuiInputLabel-outlined.Mui-focused": {
-			color: "#1d4ed8",
+		"&:hover .MuiOutlinedInput-notchedOutline": {
+			borderColor: theme.palette.type === 'light' ? "#94a3b8" : "#94a3b8",
 		},
+		"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+			borderColor: theme.palette.primary.main,
+		},
+		"& .MuiSvgIcon-root": {
+			color: theme.palette.text.secondary,
+		}
 	},
 	submit: {
-		margin: theme.spacing(2, 0, 1.5),
-		borderRadius: 10,
-		padding: "12px 0",
-		background: "linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)",
-		color: "#fff",
-		fontWeight: 700,
-		fontSize: "0.95rem",
-		letterSpacing: "0.5px",
-		textTransform: "uppercase",
-		boxShadow: "0 4px 14px rgba(29,78,216,0.35)",
-		transition: "all 0.25s ease",
+		margin: theme.spacing(4, 0, 2),
+		padding: "14px",
+		borderRadius: "12px",
+		backgroundColor: theme.palette.type === 'light' ? "#682EE3" : theme.palette.primary.main,
+		color: "white",
+		fontWeight: "bold",
+		fontSize: "1rem",
+		transition: "all 0.3s ease",
 		"&:hover": {
-			background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)",
-			boxShadow: "0 6px 20px rgba(29,78,216,0.45)",
-			transform: "translateY(-1px)",
-		},
+			backgroundColor: theme.palette.type === 'light' ? "#5225b2" : "#9333ea",
+			transform: "translateY(-2px)",
+			boxShadow: `0 5px 15px ${theme.palette.type === 'light' ? 'rgba(104, 46, 227, 0.4)' : 'rgba(167, 139, 250, 0.4)'}`,
+		}
 	},
-	linkText: {
-		color: "#1d4ed8",
-		fontWeight: 500,
-		fontSize: "0.875rem",
+	link: {
+		color: theme.palette.type === 'light' ? "#64748b" : "#94a3b8",
+		fontSize: "0.85rem",
 		textDecoration: "none",
+		transition: "color 0.3s ease",
 		"&:hover": {
-			textDecoration: "underline",
-		},
+			color: theme.palette.type === 'light' ? "#0f172a" : "#f8fafc"
+		}
+	},
+	inputLabel: {
+		color: theme.palette.text.secondary,
+		marginBottom: theme.spacing(1),
+		textAlign: "left",
+		width: "100%"
 	},
 	languageControl: {
 		position: "absolute",
-		top: 12,
-		left: 12,
-		zIndex: 10,
-	},
-	langIcon: {
-		color: "#6b7280",
-		"&:hover": { color: "#1d4ed8" },
-	},
-	divider: {
-		width: "100%",
-		height: 1,
-		background: "linear-gradient(90deg, transparent, #e5e7eb, transparent)",
-		margin: "16px 0",
-	},
-	planCard: {
-		border: "2px solid rgba(29,78,216,0.1)",
-		borderRadius: 14,
-		padding: "16px 12px",
-		cursor: "pointer",
-		transition: "all 0.25s ease",
-		backgroundColor: "#ffffff",
-		display: "flex",
-		flexDirection: "column",
-		alignItems: "center",
-		boxShadow: "0 2px 4px rgba(0,0,0,0.02)",
-		"&:hover": {
-			borderColor: "rgba(37,99,235,0.4)",
-			backgroundColor: "#f8fafc",
-			transform: "translateY(-2px)"
-		}
-	},
-	planCardSelected: {
-		borderColor: "#2563eb",
-		backgroundColor: "#eff6ff",
-		boxShadow: "0 4px 16px rgba(37,99,235,0.15)",
-	},
-	planName: {
-		fontWeight: 700,
-		color: "#1e293b",
-		fontSize: "1.05rem",
-		textTransform: "uppercase",
-		letterSpacing: "0.5px"
-	},
-	planPrice: {
-		color: "#1d4ed8",
-		fontWeight: 800,
-		fontSize: "1.4rem",
-		margin: "8px 0"
-	},
-	planDetails: {
-		fontSize: "0.8rem",
-		color: "#64748b",
-		textAlign: "center",
-		fontWeight: 500,
-		marginTop: 8
-	},
-	planBadge: {
-		backgroundColor: "#dbeafe",
-		color: "#1d4ed8",
-		padding: "2px 8px",
-		borderRadius: 12,
-		fontSize: "0.7rem",
-		fontWeight: 700,
-		marginBottom: 8
+		top: 20,
+		right: 20,
+		zIndex: 10
 	}
 }));
 
@@ -289,17 +167,12 @@ const UserSchema = Yup.object().shape({
 		.min(2, i18n.t("signup.formErrors.name.short"))
 		.max(50, i18n.t("signup.formErrors.name.long"))
 		.required(i18n.t("signup.formErrors.name.required")),
-	password: Yup.string()
-		.min(5, i18n.t("signup.formErrors.password.short"))
-		.max(50, i18n.t("signup.formErrors.password.long")),
-	email: Yup.string()
-		.email(i18n.t("signup.formErrors.email.invalid"))
-		.required(i18n.t("signup.formErrors.email.required")),
-	planId: Yup.number().required("Por favor, selecione um plano."),
+	password: Yup.string().min(5, i18n.t("signup.formErrors.password.short")).max(50, i18n.t("signup.formErrors.password.long")),
+	email: Yup.string().email(i18n.t("signup.formErrors.email.invalid")).required(i18n.t("signup.formErrors.email.required")),
 });
-
 const SignUp = () => {
 	const classes = useStyles();
+	const theme = useTheme();
 	const history = useHistory();
 	let companyId = null;
 
@@ -308,7 +181,7 @@ const SignUp = () => {
 		companyId = params.companyId;
 	}
 
-	const initialState = { name: "", email: "", phone: "", password: "", planId: "" };
+	const initialState = { name: "", email: "", phone: "", password: "", planId: "", };
 
 	const [user] = useState(initialState);
 	const dueDate = moment().add(3, "day").format();
@@ -328,231 +201,200 @@ const SignUp = () => {
 		}
 	};
 
-	const [anchorElLanguage, setAnchorElLanguage] = useState(null);
-	const [menuLanguageOpen, setMenuLanguageOpen] = useState(false);
-
-	const handlemenuLanguage = event => {
-		setAnchorElLanguage(event.currentTarget);
-		setMenuLanguageOpen(true);
-	};
-
-	const handleCloseMenuLanguage = () => {
-		setAnchorElLanguage(null);
-		setMenuLanguageOpen(false);
-	};
-
 	const [plans, setPlans] = useState([]);
-	const { getPlanList: listPlans } = usePlans();
+	const { list: listPlans } = usePlans();
 
 	useEffect(() => {
 		async function fetchData() {
-			const list = await listPlans({ listPublic: "false" });
+			const list = await listPlans();
 			setPlans(list);
 		}
 		fetchData();
+	}, [listPlans]);
+
+	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		setShow(true);
 	}, []);
 
 	return (
 		<div className={classes.root}>
-			<div className={classes.decorCircle1} />
-			<div className={classes.decorCircle2} />
-
-			<div className={classes.languageControl}>
-				<IconButton size="small">
-					<LanguageOutlined
-						aria-label="language"
-						aria-controls="menu-appbar"
-						aria-haspopup="true"
-						onClick={handlemenuLanguage}
-						className={classes.langIcon}
-					/>
-				</IconButton>
-				<Menu
-					id="menu-appbar-language"
-					anchorEl={anchorElLanguage}
-					getContentAnchorEl={null}
-					anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-					transformOrigin={{ vertical: "top", horizontal: "right" }}
-					open={menuLanguageOpen}
-					onClose={handleCloseMenuLanguage}
-				>
+			<Fade in={show} timeout={1000}>
+				<div className={classes.languageControl}>
 					<LanguageControl />
-				</Menu>
-			</div>
-
+				</div>
+			</Fade>
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
-				<div className={classes.paper}>
-					<div className={classes.accentBar} />
+				<Grow in={show} timeout={1000}>
+					<div className={classes.paper}>
+						<Typography component="h1" variant="h4" className={classes.title}>
+							{i18n.t("signup.title")}
+						</Typography>
+						<Formik
+							initialValues={user}
+							enableReinitialize={true}
+							validationSchema={UserSchema}
+							onSubmit={(values, actions) => {
+								setTimeout(() => {
+									handleSignUp(values);
+									actions.setSubmitting(false);
+								}, 400);
+							}}
+						>
+							{({ touched, errors, isSubmitting }) => (
+								<Form className={classes.form}>
+									<Grid container spacing={2}>
+										<Grid item xs={12}>
+											<Fade in={show} timeout={1500}>
+												<Field
+													as={TextField}
+													autoComplete="name"
+													name="name"
+													error={touched.name && Boolean(errors.name)}
+													helperText={touched.name && errors.name}
+													variant="outlined"
+													fullWidth
+													id="name"
+													label={i18n.t("signup.form.name")}
+													className={classes.textField}
+												/>
+											</Fade>
+										</Grid>
 
-					<div className={classes.logoContainer}>
-						<Typography className={classes.logoText}>INNOVATION</Typography>
-					</div>
-
-					<Typography className={classes.title}>{i18n.t("signup.greetings.welcome")}</Typography>
-					<Typography className={classes.subtitle}>{i18n.t("signup.greetings.subtitle")}</Typography>
-
-					<Formik
-						initialValues={user}
-						enableReinitialize={true}
-						validationSchema={UserSchema}
-						onSubmit={(values, actions) => {
-							setTimeout(() => {
-								handleSignUp(values);
-								actions.setSubmitting(false);
-							}, 400);
-						}}
-					>
-						{({ touched, errors, isSubmitting, setFieldValue, values }) => (
-							<Form className={classes.form}>
-								<Grid container spacing={1}>
-									<Grid item xs={12}>
-										<Field
-											as={TextField}
-											className={classes.textField}
-											autoComplete="name"
-											name="name"
-											error={touched.name && Boolean(errors.name)}
-											helperText={touched.name && errors.name}
-											variant="outlined"
-											fullWidth
-											size="small"
-											id="name"
-											label={i18n.t("signup.form.name")}
-										/>
-									</Grid>
-
-									<Grid item xs={12}>
-										<Field
-											as={TextField}
-											className={classes.textField}
-											variant="outlined"
-											fullWidth
-											size="small"
-											id="email"
-											label={i18n.t("signup.form.email")}
-											name="email"
-											error={touched.email && Boolean(errors.email)}
-											helperText={touched.email && errors.email}
-											autoComplete="email"
-											required
-										/>
-									</Grid>
-
-									<Grid item xs={12}>
-										<Field name="phone">
-											{({ field, form }) => (
-												<InputMask
+										<Grid item xs={12}>
+											<Fade in={show} timeout={1800}>
+												<Field
+													as={TextField}
+													variant="outlined"
+													fullWidth
+													id="email"
+													label={i18n.t("signup.form.email")}
+													name="email"
+													error={touched.email && Boolean(errors.email)}
+													helperText={touched.email && errors.email}
+													autoComplete="email"
+													required
+													className={classes.textField}
+												/>
+											</Fade>
+										</Grid>
+										
+										<Grid item xs={12}>
+											<Fade in={show} timeout={2100}>
+												<Field
+													as={InputMask}
 													mask="(99) 99999-9999"
-													{...field}
-													onChange={e => form.setFieldValue("phone", e.target.value)}
+													variant="outlined"
+													fullWidth
+													id="phone"
+													name="phone"
+													error={touched.phone && Boolean(errors.phone)}
+													helperText={touched.phone && errors.phone}
+													autoComplete="phone"
+													required
 												>
-													{() => (
+													{({ field }) => (
 														<TextField
-															className={classes.textField}
+															{...field}
 															variant="outlined"
 															fullWidth
-															size="small"
-															id="phone"
 															label={i18n.t("signup.form.phone")}
-															error={form.touched.phone && Boolean(form.errors.phone)}
-															helperText={form.touched.phone && form.errors.phone}
-															autoComplete="phone"
-															required
+															inputProps={{ maxLength: 11 }}
+															className={classes.textField}
 														/>
 													)}
-												</InputMask>
-											)}
-										</Field>
-									</Grid>
-
-									<Grid item xs={12}>
-										<Field
-											as={TextField}
-											className={classes.textField}
-											variant="outlined"
-											fullWidth
-											size="small"
-											name="password"
-											error={touched.password && Boolean(errors.password)}
-											helperText={touched.password && errors.password}
-											label={i18n.t("signup.form.password")}
-											type="password"
-											id="password"
-											autoComplete="current-password"
-											required
-										/>
-									</Grid>
-
-									<Grid item xs={12}>
-										<Typography variant="subtitle2" style={{marginBottom: 12, color: "#475569", fontWeight: 600, fontSize: "0.85rem"}}>
-											ESCOLHA SEU PLANO:
-										</Typography>
-										<Grid container spacing={2}>
-											{plans.map((plan, key) => (
-												<Grid item xs={12} sm={6} key={key}>
-													<div 
-														className={`${classes.planCard} ${values.planId === plan.id ? classes.planCardSelected : ''}`}
-														onClick={() => setFieldValue('planId', plan.id)}
-													>
-														<div className={classes.planBadge}>MAIS ESCOLHIDO</div>
-														<Typography className={classes.planName}>{plan.name}</Typography>
-														<Typography className={classes.planPrice}>
-															R$ {plan.value}
-															<span style={{fontSize: "0.8rem", color: "#64748b", fontWeight: 500}}> /mês</span>
-														</Typography>
-														<div style={{width: "80%", height: 1, backgroundColor: "#e2e8f0", margin: "8px 0"}}></div>
-														<Typography className={classes.planDetails}>
-															✓ {plan.users} Atendentes<br/>
-															✓ {plan.connections} Conexões<br/>
-															✓ {plan.queues} Filas
-														</Typography>
-													</div>
-												</Grid>
-											))}
+												</Field>
+											</Fade>
 										</Grid>
-										{touched.planId && errors.planId && (
-											<Typography variant="caption" color="error" style={{display: "block", marginTop: 8}}>{errors.planId}</Typography>
-										)}
+
+										<Grid item xs={12}>
+											<Fade in={show} timeout={2400}>
+												<Field
+													as={TextField}
+													variant="outlined"
+													fullWidth
+													name="password"
+													error={touched.password && Boolean(errors.password)}
+													helperText={touched.password && errors.password}
+													label={i18n.t("signup.form.password")}
+													type="password"
+													id="password"
+													autoComplete="current-password"
+													required
+													className={classes.textField}
+												/>
+											</Fade>
+										</Grid>
+
+										<Grid item xs={12}>
+											<Fade in={show} timeout={2700}>
+												<div style={{ textAlign: "left" }}>
+													<InputLabel htmlFor="plan-selection" className={classes.inputLabel}>
+														{i18n.t("signup.form.plan")}
+													</InputLabel>
+													<Field
+														as={Select}
+														variant="outlined"
+														fullWidth
+														id="plan-selection"
+														name="planId"
+														required
+														className={classes.select}
+														displayEmpty
+													>
+														<MenuItem value="" disabled>
+															<em>Selecione um plano</em>
+														</MenuItem>
+														{plans.map((plan, key) => (
+															<MenuItem key={key} value={plan.id}>
+																{plan.name} - R$ {plan.value}
+															</MenuItem>
+														))}
+													</Field>
+												</div>
+											</Fade>
+										</Grid>
 									</Grid>
-								</Grid>
 
-								<Button
-									type="submit"
-									fullWidth
-									variant="contained"
-									className={classes.submit}
-									disabled={isSubmitting || !values.planId}
-								>
-									{i18n.t("signup.buttons.submit")}
-								</Button>
-
-								<div className={classes.divider} />
-
-								<Grid container justify="center">
-									<Grid item>
-										<Link
-											href="#"
-											variant="body2"
-											component={RouterLink}
-											to="/login"
-											className={classes.linkText}
+									<Grow in={show} timeout={3000}>
+										<Button
+											type="submit"
+											fullWidth
+											variant="contained"
+											className={classes.submit}
+											disabled={isSubmitting}
 										>
-											{i18n.t("signup.buttons.login")}
-										</Link>
-									</Grid>
-								</Grid>
-							</Form>
-						)}
-					</Formik>
-				</div>
+											{i18n.t("signup.buttons.submit")}
+										</Button>
+									</Grow>
 
-				<Box mt={3}>
-					<Copyright />
-				</Box>
+									<Grid container justify="flex-end">
+										<Grid item>
+											<Fade in={show} timeout={3300}>
+												<Link
+													component={RouterLink}
+													to="/login"
+													className={classes.link}
+												>
+													{i18n.t("signup.buttons.login")}
+												</Link>
+											</Fade>
+										</Grid>
+									</Grid>
+								</Form>
+							)}
+						</Formik>
+					</div>
+				</Grow>
+				<Fade in={show} timeout={3500}>
+					<Box mt={5}><Copyright /></Box>
+				</Fade>
 			</Container>
 		</div>
 	);
+
 };
 
 export default SignUp;
