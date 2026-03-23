@@ -97,6 +97,19 @@ const App = () => {
                 borderRadius: 16,
             },
             overrides: {
+                MuiCssBaseline: {
+                    "@global": {
+                        "*, *::before, *::after": {
+                            boxSizing: "border-box",
+                        },
+                        html: {
+                            WebkitFontSmoothing: "auto",
+                        },
+                        body: {
+                            overflowX: "hidden",
+                        },
+                    },
+                },
                 MuiButton: {
                     root: {
                         textTransform: "none",

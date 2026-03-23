@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 const isProduction = process.env.NODE_ENV === "production";
 
 /**
@@ -18,7 +18,7 @@ export const SendRefreshToken = (res: Response, token: string): void => {
     httpOnly: true,
     secure: isProduction,          // HTTPS only em produção
     sameSite: "strict",            // Proteção CSRF
-    maxAge: SEVEN_DAYS_MS,         // 7 dias em ms — igual ao refreshExpiresIn
+    maxAge: THIRTY_DAYS_MS,        // 30 dias em ms — igual ao refreshExpiresIn
     path: "/auth/refresh_token"    // Cookie enviado apenas para rota de refresh
   });
 };

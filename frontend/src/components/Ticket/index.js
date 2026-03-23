@@ -4,7 +4,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import clsx from "clsx";
 
-import { Paper, makeStyles } from "@material-ui/core";
+import { Paper, makeStyles, IconButton, useTheme, useMediaQuery } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import ContactDrawer from "../ContactDrawer";
 import MessageInput from "../MessageInputCustom/";
@@ -25,14 +26,18 @@ const drawerWidth = 320;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    flexDirection: "column",
     height: "100%",
     position: "relative",
     overflow: "hidden",
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+    },
   },
 
   mainWrapper: {
     flex: 1,
-    height: "100%",
+    minHeight: 0, // necessário para overflow funcionar em flex column
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
@@ -55,12 +60,22 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  backButton: {
+    display: "flex",
+    alignItems: "center",
+    padding: "4px 8px",
+    borderBottom: `1px solid rgba(0,0,0,0.12)`,
+    backgroundColor: theme.palette.background.paper,
+    flexShrink: 0,
+  },
 }));
 
 const Ticket = () => {
   const { ticketId } = useParams();
   const history = useHistory();
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
   const { user } = useContext(AuthContext);
 
@@ -168,6 +183,14 @@ const Ticket = () => {
 
   return (
     <div className={classes.root} id="drawer-container">
+      {/* Botão de voltar — visível apenas em mobile */}
+      {isMobile && (
+        <div className={classes.backButton}>
+          <IconButton size="small" onClick={() => history.push("/tickets")}>
+            <ArrowBackIcon />
+          </IconButton>
+        </div>
+      )}
       <Paper
         variant="outlined"
         elevation={0}

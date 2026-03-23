@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(15, 23, 42, 0.8)',
+    backgroundColor: theme.palette.type === 'light' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(15, 23, 42, 0.9)',
     backdropFilter: "blur(12px)",
     color: theme.palette.text.primary,
     boxShadow: "none",
@@ -73,10 +73,18 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: 0,
+      width: "100%",
+    },
   },
   toolbar: {
-    paddingRight: 24,
-    minHeight: 64,
+    paddingRight: 16,
+    minHeight: 56,
+    [theme.breakpoints.up("sm")]: {
+      paddingRight: 24,
+      minHeight: 64,
+    },
   },
   drawerPaper: {
     width: drawerWidth,
@@ -86,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
     }),
     backgroundColor: theme.palette.type === 'light' ? '#ffffff' : '#0f172a',
     borderRight: `1px solid ${theme.palette.type === 'light' ? '#f1f5f9' : '#1e293b'}`,
-    boxShadow: "none",
+    boxShadow: theme.palette.type === 'light' ? 'none' : 'none',
     overflowX: "hidden",
     position: "relative",
     ...theme.scrollbarStylesSoft,
@@ -103,18 +111,30 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     height: "100vh",
     overflow: "auto",
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
+    [theme.breakpoints.up("sm")]: {
+      padding: theme.spacing(2),
+    },
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(3),
+    },
   },
   appBarSpacer: {
-    minHeight: 64,
+    minHeight: 56,
+    [theme.breakpoints.up("sm")]: {
+      minHeight: 64,
+    },
   },
   title: {
     flexGrow: 1,
-    fontSize: "1.25rem",
+    fontSize: "1.1rem",
     fontWeight: 700,
-    color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main, // Innovation Violet / adapted
+    color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main,
     display: "flex",
     alignItems: "center",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "1.25rem",
+    },
   },
   logo: {
     width: "100%",
@@ -130,12 +150,16 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 64,
   },
   greeting: {
-    fontSize: "0.875rem",
+    fontSize: "0.8rem",
     color: theme.palette.type === 'light' ? "#64748b" : "#cbd5e1",
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(1),
     "& span": {
       fontWeight: 600,
       color: theme.palette.type === 'light' ? "#682ee2" : theme.palette.primary.main,
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "0.875rem",
+      marginBottom: theme.spacing(3),
     },
   },
   avatar: {
@@ -151,6 +175,13 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "auto",
     ...theme.scrollbarStylesSoft,
   },
+  // Esconde ícones opcionais em telas muito pequenas
+  hideOnMobile: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+    },
+  },
 }));
 
 const LoggedInLayout = ({ children, themeToggle }) => {
@@ -159,17 +190,20 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const { handleLogout, loading } = useContext(AuthContext);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [drawerVariant, setDrawerVariant] = useState("permanent");
-  // const [dueDate, setDueDate] = useState("");
   const { user } = useContext(AuthContext);
 
   const theme = useTheme();
   const { colorMode } = useContext(ColorModeContext);
-  const greaterThenSm = useMediaQuery(theme.breakpoints.up("sm"));
+
+  // Breakpoints reativos via useMediaQuery — correto e reativo a resize
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));  // < 600px
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));  // < 960px
+  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));   // >= 1280px
+
+  // Drawer começa aberto em desktop, fechado em tablet/mobile
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [volume, setVolume] = useState(localStorage.getItem("volume") || 1);
-
   const { dateToClient } = useDate();
 
   // Languages
@@ -178,19 +212,10 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
   const socketManager = useContext(SocketContext);
 
+  // Abrir drawer automaticamente em desktop
   useEffect(() => {
-    if (document.body.offsetWidth > 1200) {
-      setDrawerOpen(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (document.body.offsetWidth < 600) {
-      setDrawerVariant("temporary");
-    } else {
-      setDrawerVariant("permanent");
-    }
-  }, [drawerOpen]);
+    setDrawerOpen(isDesktop);
+  }, [isDesktop]);
 
   useEffect(() => {
     const companyId = localStorage.getItem("companyId");
@@ -224,20 +249,20 @@ const LoggedInLayout = ({ children, themeToggle }) => {
     setMenuOpen(true);
   };
 
-  const handlemenuLanguage = ( event ) => {
+  const handlemenuLanguage = (event) => {
     setAnchorElLanguage(event.currentTarget);
-    setMenuLanguageOpen( true );
-  }
+    setMenuLanguageOpen(true);
+  };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
     setMenuOpen(false);
   };
 
-  const handleCloseMenuLanguage = (  ) => {
+  const handleCloseMenuLanguage = () => {
     setAnchorElLanguage(null);
     setMenuLanguageOpen(false);
-  }
+  };
 
   const handleOpenUserModal = () => {
     setUserModalOpen(true);
@@ -249,30 +274,28 @@ const LoggedInLayout = ({ children, themeToggle }) => {
     handleLogout();
   };
 
+  // Fechar drawer ao clicar em item de menu no mobile/tablet
   const drawerClose = () => {
-    if (document.body.offsetWidth < 600) {
+    if (isMobile || isTablet) {
       setDrawerOpen(false);
     }
   };
 
   const handleRefreshPage = () => {
     window.location.reload(false);
-  }
-
-  const handleMenuItemClick = () => {
-    const { innerWidth: width } = window;
-    if (width <= 600) {
-      setDrawerOpen(false);
-    }
   };
 
   const toggleColorMode = () => {
     colorMode.toggleColorMode();
-  }
+  };
 
   if (loading) {
     return <BackdropLoading />;
   }
+
+  // Em mobile: "temporary" (sobrepõe o conteúdo com overlay)
+  // Em desktop: "permanent" (ocupa espaço fixo na sidebar)
+  const drawerVariant = isMobile ? "temporary" : "permanent";
 
   return (
     <div className={classes.root}>
@@ -286,10 +309,11 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           ),
         }}
         open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
       >
         <div className={classes.toolbarIcon}>
           <img src={logo} className={classes.logo} alt="logo" />
-          <Typography variant="h6" className={classes.title} style={{ marginLeft: 12, fontSize: "1.25rem" }}>
+          <Typography variant="h6" className={classes.title} style={{ marginLeft: 12, fontSize: "1.1rem" }}>
             Innovation
           </Typography>
         </div>
@@ -304,7 +328,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
       />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}
+        className={clsx(classes.appBar, drawerOpen && !isMobile && classes.appBarShift)}
         elevation={0}
       >
         <Toolbar variant="dense" className={classes.toolbar}>
@@ -312,10 +336,6 @@ const LoggedInLayout = ({ children, themeToggle }) => {
             edge="start"
             aria-label="open drawer"
             onClick={() => setDrawerOpen(!drawerOpen)}
-            className={clsx(
-              classes.menuButton,
-              drawerOpen && classes.menuButtonHidden
-            )}
           >
             <MenuIcon />
           </IconButton>
@@ -326,31 +346,26 @@ const LoggedInLayout = ({ children, themeToggle }) => {
             noWrap
             className={classes.title}
           >
-            {/* Title can be empty or dynamically set per page */}
+            {/* Title dinâmico por página, se necessário */}
           </Typography>
-          
-          <div>
+
+          {/* Controle de idioma — oculto em mobile para economizar espaço */}
+          <div className={classes.hideOnMobile}>
             <IconButton edge="start">
               <LanguageOutlined
-                aria-label="account of current user"
+                aria-label="idioma"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handlemenuLanguage}
-                style={{ color: theme.palette.text.primary, marginRight:10 }}
+                style={{ color: theme.palette.text.primary, marginRight: 4 }}
               />
             </IconButton>
             <Menu
               id="menu-appbar-language"
               anchorEl={anchorElLanguage}
               getContentAnchorEl={null}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
               open={menuLanguageOpen}
               onClose={handleCloseMenuLanguage}
             >
@@ -358,24 +373,24 @@ const LoggedInLayout = ({ children, themeToggle }) => {
                 <LanguageControl />
               </MenuItem>
             </Menu>
-          </div>          
+          </div>
 
           <IconButton edge="start" onClick={toggleColorMode}>
-            {theme.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            {theme.palette.type === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
 
-          <NotificationsVolume
-            setVolume={setVolume}
-            volume={volume}
-          />
+          <NotificationsVolume setVolume={setVolume} volume={volume} />
 
-          <IconButton
-            onClick={handleRefreshPage}
-            aria-label={i18n.t("mainDrawer.appBar.refresh")}
-            color="inherit"
-          >
-            <CachedIcon />
-          </IconButton>
+          {/* Botão de reload — oculto em mobile */}
+          <div className={classes.hideOnMobile}>
+            <IconButton
+              onClick={handleRefreshPage}
+              aria-label={i18n.t("mainDrawer.appBar.refresh")}
+              color="inherit"
+            >
+              <CachedIcon />
+            </IconButton>
+          </div>
 
           {user.id && <NotificationsPopOver volume={volume} />}
 
@@ -383,14 +398,8 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
           <ChatPopover />
 
-          <IconButton color="inherit">
-            <NotificationsNoneOutlinedIcon />
-          </IconButton>
-
-
-
-          <div style={{ marginLeft: 12 }}>
-            <Avatar 
+          <div style={{ marginLeft: 8 }}>
+            <Avatar
               className={classes.avatar}
               onClick={handleMenu}
               style={{ cursor: "pointer" }}
@@ -401,14 +410,8 @@ const LoggedInLayout = ({ children, themeToggle }) => {
               id="menu-appbar"
               anchorEl={anchorEl}
               getContentAnchorEl={null}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
               open={menuOpen}
               onClose={handleCloseMenu}
             >
@@ -424,9 +427,11 @@ const LoggedInLayout = ({ children, themeToggle }) => {
       </AppBar>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Typography className={classes.greeting}>
-          Olá <span>{user.name}</span>, bem-vindo de volta!
-        </Typography>
+        {!isMobile && (
+          <Typography className={classes.greeting}>
+            Olá <span>{user.name}</span>, bem-vindo de volta!
+          </Typography>
+        )}
         {children ? children : null}
       </main>
     </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { has, isArray } from "lodash";
 
@@ -15,19 +15,25 @@ const useAuth = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
 
-  api.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        config.headers["Authorization"] = `Bearer ${JSON.parse(token)}`;
-        setIsAuth(true);
-      }
-      return config;
-    },
-    (error) => {
-      Promise.reject(error);
-    }
-  );
+  // Refs para o interceptor de refresh — evita recriar ao re-render
+  const isRefreshingRef = useRef(false);
+  const failedQueueRef = useRef([]);
+  const interceptorsInstalled = useRef(false);
+
+  if (!interceptorsInstalled.current) {
+    interceptorsInstalled.current = true;
+
+    api.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          config.headers["Authorization"] = `Bearer ${JSON.parse(token)}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+  }
 
   let isRefreshing = false;
   let failedRequestsQueue = [];
@@ -198,8 +204,6 @@ Entre em contato com o Suporte para mais informações! `);
       //quebra linha
     } catch (err) {
       console.error("handleLogin error:", err);
-      // Diagnostic alert
-      window.alert("Login falhou: " + (err.response?.data?.error || err.message || "Erro desconhecido"));
       toastError(err);
       setLoading(false);
     }

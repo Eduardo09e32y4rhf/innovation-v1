@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         justifyContent: "center",
         height: "100%",
-        backgroundColor: "#f5f5f5", // Cor exata do fundo para sumir com o quadrado da logo
+        backgroundColor: theme.palette.background.default,
     },
     placeholderItem: {
     }

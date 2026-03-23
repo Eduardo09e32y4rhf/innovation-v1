@@ -12,7 +12,7 @@ if (!JWT_SECRET || !JWT_REFRESH_SECRET) {
 
 export default {
   secret: JWT_SECRET,
-  expiresIn: "15m",           // Access token curto — limita janela de ataque
+  expiresIn: "8h",            // Access token 8h — equilibra segurança e UX SaaS
   refreshSecret: JWT_REFRESH_SECRET,
-  refreshExpiresIn: "7d"      // Refresh token mais longo — renovado via httpOnly cookie
+  refreshExpiresIn: "30d"     // Refresh token 30 dias — elimina logouts frequentes
 };

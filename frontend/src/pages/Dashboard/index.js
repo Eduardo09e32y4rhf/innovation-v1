@@ -39,8 +39,14 @@ import { i18n } from "../../translate/i18n";
 
 const useStyles = makeStyles((theme) => ({
   containerLayout: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
     backgroundColor: theme.palette.type === 'light' ? '#f8fafc' : '#0f172a',
+    [theme.breakpoints.up("sm")]: {
+      padding: theme.spacing(2),
+    },
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(3),
+    },
   },
   mainCard: {
     background: "#ffffff",
