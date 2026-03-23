@@ -46,11 +46,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CampaignModalPhrase = ({ open, onClose, FlowCampaignId, onSave }) => {
   const classes = useStyles();
-  const isMounted = useRef(true);
   const { user } = useContext(AuthContext);
   const { companyId } = user;
-
-  const [campaignEditable, setCampaignEditable] = useState(true);
+  const [campaignEditable] = useState(true);
   const attachmentFile = useRef(null);
 
   const [dataItem, setDataItem] = useState({
@@ -130,6 +128,7 @@ const CampaignModalPhrase = ({ open, onClose, FlowCampaignId, onSave }) => {
       setLoading(false);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -137,6 +136,7 @@ const CampaignModalPhrase = ({ open, onClose, FlowCampaignId, onSave }) => {
     if (open === true) {
       openModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const clearErrors = () => {

@@ -45,19 +45,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DialogflowSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  // projectName: Yup.string()
-  //   .min(3, "Too Short!")
-  //   .max(100, "Too Long!")
-  //   .required(),
-  // jsonContent: Yup.string().min(3, "Too Short!").required(),
-  // language: Yup.string().min(2, "Too Short!").max(50, "Too Long!").required(),
-});
-
 const FlowBuilderOpenAIModal = ({ open, onSave, data, onUpdate, close }) => {
   const classes = useStyles();
   const isMounted = useRef(true);
@@ -84,27 +71,16 @@ const FlowBuilderOpenAIModal = ({ open, onSave, data, onUpdate, close }) => {
 
   const [activeModal, setActiveModal] = useState(false);
   const [integration, setIntegration] = useState();
-  const [labels, setLabels] = useState({
-    title: "Adicionar OpenAI ao fluxo",
-    btn: "Adicionar",
-  });
+
 
   useEffect(() => {
     if (open === "edit") {
-      setLabels({
-        title: "Editar OpenAI do fluxo",
-        btn: "Salvar",
-      });
       console.log("FlowTybebotEdit", data);
       setIntegration({
         ...data.data.typebotIntegration,
       });
       setActiveModal(true);
     } else if (open === "create") {
-      setLabels({
-        title: "Cria OpenAI no fluxo",
-        btn: "Salvar",
-      });
       setIntegration(initialState);
       setActiveModal(true);
     }
@@ -112,6 +88,7 @@ const FlowBuilderOpenAIModal = ({ open, onSave, data, onUpdate, close }) => {
     return () => {
       isMounted.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const handleClose = () => {

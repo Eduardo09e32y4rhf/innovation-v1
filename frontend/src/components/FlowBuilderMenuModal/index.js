@@ -1,33 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import * as Yup from "yup";
-import { Formik, FieldArray, Form, Field } from "formik";
-import { toast } from "react-toastify";
-
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { i18n } from "../../translate/i18n";
 
-import api from "../../services/api";
-import toastError from "../../errors/toastError";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { AddCircle, Delete } from "@mui/icons-material";
 
 const useStyles = makeStyles(theme => ({
@@ -60,39 +45,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const selectFieldStyles = {
-  ".MuiOutlinedInput-notchedOutline": {
-    borderColor: "#909090"
-  },
-  "&:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: "#000000",
-    borderWidth: "thin"
-  },
-  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: "#0000FF",
-    borderWidth: "thin"
-  }
-};
-
-
-const ContactSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Muito curto!")
-    .max(50, "Muito longo!")
-    .required("Digite um nome!"),
-  text: Yup.string()
-    .min(2, "Muito curto!")
-    .max(50, "Muito longo!")
-    .required("Digite uma mensagem!")
-});
-
-const FlowBuilderMenuModal = ({ open, onSave, onUpdate, data, close }) => {
+  const FlowBuilderMenuModal = ({ open, onSave, onUpdate, data, close }) => {
   const classes = useStyles();
   const isMounted = useRef(true);
 
   const [activeModal, setActiveModal] = useState(false);
-
-  const [rule, setRule] = useState();
 
   const [textDig, setTextDig] = useState();
 
@@ -123,6 +80,7 @@ const FlowBuilderMenuModal = ({ open, onSave, onUpdate, data, close }) => {
     } else {
       setActiveModal(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   useEffect(() => {

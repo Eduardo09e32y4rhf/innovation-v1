@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import clsx from "clsx";
-import moment from "moment";
 import {
   makeStyles,
   Drawer,
@@ -190,14 +189,18 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const theme = useTheme();
   const { colorMode } = useContext(ColorModeContext);
 
-  // Breakpoints reativos via useMediaQuery — correto e reativo a resize
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));  // < 600px
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));  // < 960px
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));   // >= 1280px
 
   // Drawer começa aberto em desktop, fechado em tablet/mobile
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [volume, setVolume] = useState(localStorage.getItem("volume") || 1);
+
+  // Languages
+  const [anchorElLanguage, setAnchorElLanguage] = useState(null);
+  const [menuLanguageOpen, setMenuLanguageOpen] = useState(false);
 
   const socketManager = useContext(SocketContext);
 
@@ -236,6 +239,11 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
     setMenuOpen(true);
+  };
+
+  const handlemenuLanguage = (event) => {
+    setAnchorElLanguage(event.currentTarget);
+    setMenuLanguageOpen(true);
   };
 
   const handleCloseMenu = () => {

@@ -45,6 +45,7 @@ const Kanban = () => {
 
   useEffect(() => {
     fetchTags();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [file, setFile] = useState({
@@ -53,7 +54,7 @@ const Kanban = () => {
 
   const [tickets, setTickets] = useState([]);
   const { user } = useContext(AuthContext);
-  const { profile, queues } = user;
+  const { profile } = user;
   const jsonString = user.queues.map((queue) => queue.UserQueue.queueId);
 
   const fetchTickets = async (jsonString) => {
@@ -156,6 +157,7 @@ const Kanban = () => {
 
   useEffect(() => {
     popularCards(jsonString);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags, tickets]);
 
   const handleCardMove = async (cardId, sourceLaneId, targetLaneId) => {
