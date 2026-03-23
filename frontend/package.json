@@ -74,8 +74,8 @@
   },
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "CI=false NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
-    "builddev": "CI=false NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "build": "CI=false NODE_OPTIONS=\"--max_old_space_size=8192 --openssl-legacy-provider\" react-scripts build",
+    "builddev": "CI=false NODE_OPTIONS=\"--max_old_space_size=8192 --openssl-legacy-provider\" react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
