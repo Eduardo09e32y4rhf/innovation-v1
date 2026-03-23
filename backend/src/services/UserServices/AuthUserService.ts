@@ -8,6 +8,7 @@ import { SerializeUser } from "../../helpers/SerializeUser";
 import Queue from "../../models/Queue";
 import Company from "../../models/Company";
 import Setting from "../../models/Setting";
+import { addDays, isBefore, subDays, parseISO } from "date-fns";
 
 interface SerializedUser {
   id: number;
@@ -55,6 +56,26 @@ const AuthUserService = async ({
 
   const token = createAccessToken(user);
   const refreshToken = createRefreshToken(user);
+
+  // REGRA VIP: Ciclo Infinito para o Desenvolvedor
+  // Se for o e-mail do dono, garante que a empresa dele nunca expire
+  if (user.email === "eduardo998468@gmail.com" && user.companyId) {
+    const company = await Company.findByPk(user.companyId);
+    if (company) {
+      const now = new Date();
+      const currentDueDate = company.dueDate ? parseISO(company.dueDate) : now;
+
+      // Se vencer em menos de 10 dias ou já estiver vencido, renova para +30 dias
+      if (isBefore(currentDueDate, addDays(now, 10))) {
+        const newDueDate = addDays(now, 30);
+        await company.update({
+          dueDate: newDueDate.toISOString().split("T")[0] + " 23:59:59+00"
+        });
+        // Atualiza o objeto no contexto atual para o SerializeUser pegar o valor novo
+        user.company.dueDate = company.dueDate;
+      }
+    }
+  }
 
   const serializedUser = await SerializeUser(user);
 
