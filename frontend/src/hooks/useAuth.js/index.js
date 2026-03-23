@@ -16,8 +16,6 @@ const useAuth = () => {
   const [user, setUser] = useState({});
 
   // Refs para o interceptor de refresh — evita recriar ao re-render
-  const isRefreshingRef = useRef(false);
-  const failedQueueRef = useRef([]);
   const interceptorsInstalled = useRef(false);
 
   if (!interceptorsInstalled.current) {

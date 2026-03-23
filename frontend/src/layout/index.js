@@ -8,7 +8,6 @@ import {
   Toolbar,
   List,
   Typography,
-  Divider,
   MenuItem,
   IconButton,
   Menu,
@@ -17,8 +16,6 @@ import {
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import CachedIcon from "@material-ui/icons/Cached";
 
 import MainListItems from "./MainListItems";
@@ -27,7 +24,6 @@ import NotificationsVolume from "../components/NotificationsVolume";
 import UserModal from "../components/UserModal";
 import { AuthContext } from "../context/Auth/AuthContext";
 import BackdropLoading from "../components/BackdropLoading";
-import DarkMode from "../components/DarkMode";
 import { i18n } from "../translate/i18n";
 import toastError from "../errors/toastError";
 import AnnouncementsPopover from "../components/AnnouncementsPopover";
@@ -42,8 +38,7 @@ import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import LanguageControl from "../components/LanguageControl";
-import { LanguageOutlined, SettingsOutlined } from "@material-ui/icons";
-import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import { LanguageOutlined } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 
 const drawerWidth = 240;
@@ -197,18 +192,12 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
   // Breakpoints reativos via useMediaQuery — correto e reativo a resize
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));  // < 600px
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));  // < 960px
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));   // >= 1280px
 
   // Drawer começa aberto em desktop, fechado em tablet/mobile
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [volume, setVolume] = useState(localStorage.getItem("volume") || 1);
-  const { dateToClient } = useDate();
-
-  // Languages
-  const [anchorElLanguage, setAnchorElLanguage] = useState(null);
-  const [menuLanguageOpen, setMenuLanguageOpen] = useState(false);
 
   const socketManager = useContext(SocketContext);
 
@@ -247,11 +236,6 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
     setMenuOpen(true);
-  };
-
-  const handlemenuLanguage = (event) => {
-    setAnchorElLanguage(event.currentTarget);
-    setMenuLanguageOpen(true);
   };
 
   const handleCloseMenu = () => {
