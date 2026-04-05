@@ -167,3 +167,21 @@ export const remove = async (
 
   return res.status(200).json({ message: "Whatsapp deleted." });
 };
+
+export const startPairing = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { whatsappId } = req.params;
+  const { companyId } = req.user;
+  const { phoneNumber } = req.body;
+
+  if (!phoneNumber) {
+    return res.status(400).json({ error: "Phone number is required." });
+  }
+
+  const whatsapp = await ShowWhatsAppService(whatsappId, companyId);
+  await StartWhatsAppSession(whatsapp, companyId, true, phoneNumber);
+
+  return res.status(200).json({ message: "Pairing code requested." });
+};

@@ -19,4 +19,10 @@ whatsappRoutes.delete(
   WhatsAppController.remove
 );
 
+whatsappRoutes.post(
+  "/whatsapp/:whatsappId/pairing",
+  isAuth,
+  WhatsAppController.startPairing
+);
+
 export default whatsappRoutes;
