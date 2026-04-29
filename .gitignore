@@ -1,4 +1,9 @@
-node_modules/
+node_modules
+.env
+.DS_Store
+*.idea
+
+# Electron app specific
 release/
 extracted_app/
 v8_context_snapshot.bin
@@ -7,4 +12,3 @@ resources/
 locales/
 verify_app/
 scratch/
-.env
