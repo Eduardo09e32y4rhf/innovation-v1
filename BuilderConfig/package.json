@@ -1,0 +1,31 @@
+{
+  "name": "innovation-ia",
+  "version": "6.1.0",
+  "author": "Innovation Team",
+  "description": "INNOVATION IA Platform",
+  "build": {
+    "appId": "com.innovation.ia",
+    "directories": {
+      "output": "c:\\\\Users\\\\eduar\\\\Desktop\\\\Installer_Final"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "c:\\\\Users\\\\eduar\\\\Desktop\\\\Omnius AI 6.0\\\\assets\\\\installer-icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "license": "license.txt",
+      "include": "installer.nsh",
+      "installerIcon": "c:\\\\Users\\\\eduar\\\\Desktop\\\\Omnius AI 6.0\\\\assets\\\\installer-icon.ico",
+      "installerHeaderIcon": "c:\\\\Users\\\\eduar\\\\Desktop\\\\Omnius AI 6.0\\\\assets\\\\installer-icon.ico",
+      "installerHeader": "c:\\\\Users\\\\eduar\\\\Desktop\\\\Omnius AI 6.0\\\\assets\\\\header.png",
+      "installerSidebar": "c:\\\\Users\\\\eduar\\\\Desktop\\\\Omnius AI 6.0\\\\assets\\\\sidebar.png",
+      "artifactName": "Instalador_Innovation_IA.exe"
+    },
+    "electronVersion": "30.0.1"
+  },
+  "productName": "INNOVATION IA"
+}

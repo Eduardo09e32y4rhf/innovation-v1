@@ -1,0 +1,10 @@
+node_modules/
+release/
+extracted_app/
+v8_context_snapshot.bin
+icudtl.dat
+resources/
+locales/
+verify_app/
+scratch/
+.env
