@@ -1,28 +1,47 @@
-# Innovation IA - Desktop App
+<div align="center">
+  <img src="assets/new-logo.png" alt="Innovation IA Logo" width="200"/>
 
-Este é o aplicativo Desktop do **Innovation IA** (antigo Omnius AI 6.0), desenvolvido com Electron.
-Ele atua como um wrapper (encapsulador) do sistema CRM, permitindo que a aplicação rode nativamente como um programa no Windows e possa ser distribuída via instalador.
-
-## Estrutura de Pastas e Arquivos
-
-- `assets/` - Contém os ícones e logos usados no aplicativo e no instalador (ex: `installer-icon.ico`, `new-logo.png`).
-- `BuilderConfig/` - Arquivos de configuração e scripts para a geração do instalador NSIS (`installer.nsh`, `generate-license.js`, `license.txt`).
-- `electron-starter.js` - Ponto de entrada principal da aplicação Electron. Configura a janela do aplicativo, gerencia o ciclo de vida e a comunicação com o backend/frontend.
-- `build-installer.js` - Script responsável por usar o `electron-winstaller` para gerar o arquivo `.exe` (instalador) final.
-- `convert-icon.js` - Script utilitário caso haja necessidade de conversão de imagens para os formatos de ícone.
-
-## Scripts Disponíveis
-
-No `package.json`, temos os seguintes comandos principais:
-
-- `npm start`: Inicia o aplicativo localmente em ambiente de desenvolvimento.
-- `npm run package`: (se configurado) Prepara os binários do Electron.
-- `npm run build`: Roda o script de construção do instalador (`build-installer.js`), que vai ler os arquivos da pasta e gerar um executável para distribuição.
-
-## Notas Importantes
-
-- **Segurança:** O repositório está configurado para ignorar arquivos `.env`, `node_modules` e artefatos de build gerados (`v8_context_snapshot.bin`, etc), mantendo o código limpo e seguro contra vazamentos de senhas ou chaves.
-- **Tokens de IA:** Como especificado nos termos (arquivos de licença), o Innovation IA não inclui tokens de IA de terceiros; estes devem ser fornecidos pelo usuário.
+  # Innovation IA - Plataforma de CRM & Automação de WhatsApp
+  
+  **Software independente, maduro e atualmente em uso em ambiente de produção.**
+  
+  ![Status](https://img.shields.io/badge/Status-Em%20Produção-success?style=for-the-badge)
+  ![Plataforma](https://img.shields.io/badge/Plataforma-Desktop%20%7C%20Web-blue?style=for-the-badge)
+</div>
 
 ---
-*⌨️ com ❤️ por Innovation 😊 Todos os direitos reservados.*
+
+## 🚀 Sobre o Projeto
+
+O **Innovation IA** é uma solução completa e robusta de **Customer Relationship Management (CRM) focada na automação inteligente do WhatsApp**. Desenvolvido para escalar o atendimento e as vendas de empresas, este software atua de ponta a ponta na gestão do relacionamento com o cliente.
+
+Não se trata apenas de uma prova de conceito, mas sim de uma plataforma corporativa madura, **100% pronta e em operação real em clientes**. O aplicativo desktop (empacotado via Electron) fornece aos usuários uma experiência fluida, estável e nativa, simplificando a complexidade de gerenciar múltiplos clientes, processar mídias e gerenciar compromissos diários.
+
+## 🎯 Principais Funcionalidades
+
+O sistema foi arquitetado para lidar com o fluxo de trabalho diário de alta demanda de equipes comerciais e de suporte, suportando de forma totalmente integrada:
+
+- 🤖 **Automação Avançada de WhatsApp:** Fluxos inteligentes de mensagens, respostas assíncronas de alta performance e filas de atendimento, substituindo o trabalho manual repetitivo.
+- 🎙️ **Processamento Nativo de Mídias:** Tratamento de ponta a ponta para envio e recebimento de **Áudios, Fotos e Documentos**, garantindo que as vendas e os atendimentos não percam o aspecto humano.
+- 📅 **Gestão de Agendas e Funil de Vendas:** Sistema integrado (CRM) para controle total dos contatos, gestão de follow-ups, agendamentos, e acompanhamento em cada etapa do funil.
+- 💻 **Aplicativo Desktop Multi-Plataforma (Desktop App):** Construído para desktop, permitindo um empacotamento completo (`.exe`) e distribuição simplificada através de um instalador próprio.
+- 🔒 **Arquitetura Segura e Escalável:** Boas práticas de segurança implementadas desde a base. O sistema não expõe tokens proprietários e adota padrões rígidos de isolamento para privacidade e conformidade.
+
+## 🛠️ Stack e Engenharia de Software
+
+A construção desta solução exigiu o domínio de diversas disciplinas críticas:
+
+- **Electron & Node.js:** Base do aplicativo desktop, garantindo integração profunda com o sistema operacional, controle de ciclo de vida e performance.
+- **Integração de APIs de Mensageria:** Lidando com concorrência, webhooks e manipulação de fluxos assíncronos de dados do WhatsApp.
+- **Pipeline de Distribuição:** Scripts automatizados (`build-installer.js`) para a geração de instaladores profissionais Windows (NSIS) usando `electron-winstaller`.
+
+## 💼 Impacto do Projeto e Visão de Engenharia
+
+O desenvolvimento do **Innovation IA** evidencia a capacidade de atuar em todo o **Ciclo de Vida de Software**:
+1. **Concepção ao Deploy:** Integração da interface de front-end com um robusto back-end (Express/Node) e a criação de uma casca desktop independente.
+2. **Resolução de Problemas Reais:** O software opera lidando com problemas reais de I/O, manipulação de arquivos binários (áudios/imagens) e estado assíncrono das comunicações de WhatsApp.
+3. **Visão de Produto:** Entrega focada no cliente final (instalação com um clique e interface nativa e responsiva).
+
+---
+
+*Transformando complexidade operacional em produtividade automatizada.*
