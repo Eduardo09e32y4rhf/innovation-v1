@@ -1,74 +1,47 @@
-# Innovation - v6.0.0
+<div align="center">
+  <img src="assets/new-logo.png" alt="Innovation IA Logo" width="200"/>
 
-O Innovation é uma plataforma White Label completa para atendimento via WhatsApp, focada em produtividade e organização para equipes de vendas e suporte.
-
-## 🚀 Novidades da Versão 6.0.0
-
-- **Revitalização da Interface de Autenticação**: Reformulação visual moderna e limpa para as telas de Login, Cadastro e Recuperação de Senha.
-- **Tema Adaptativo Inteligente**: Suporte nativo a temas **Claro** e **Escuro** em toda a área de login e menus, garantindo conforto visual e legibilidade em qualquer ambiente.
-- **Responsividade Mobile Aprimorada**: Layouts reconstruídos para se adaptarem perfeitamente a qualquer dispositivo (Mobile, Tablet e Desktop).
-- **Correções de UI/UX**: Resolução de problemas de visibilidade em ícones de senha e seletores de idioma, garantindo contraste perfeito.
-- **Otimização de Performance**: Limpeza de código legado e correção de imports corrompidos de ícones.
-
-## 📁 Estrutura do Projeto
-
-O repositório do Innovation possui 3 pastas principais:
-- **backend**: Servidor em Express com toda a lógica de negócio e banco de dados.
-- **frontend**: Aplicação React.js que gerencia a interface do usuário.
-- **instalador**: Ferramenta para clonagem e instalação automática em servidores home.
-
-Link para o repositório do instalador:
-- [Instalador](https://github.com/innovation-org/instalador)
-
-## 📋 Pré-requisitos
-
-```
-- Node.js v20.x
-- PostgreSQL (V12+)
-- NPM (Latest)
-- Docker & Docker Compose
-- Redis
-```
-
-## 🔧 Instalação e Configuração
-
-Consulte as instruções detalhadas dentro de cada pasta para configurar o `.env`.
-
-### Dependências
-```bash
-cd backend/ && npm install --force
-cd ../frontend/ && npm install --force
-```
-
-### Rodando Localmente
-```bash
-# Terminal 1 - Backend
-cd backend/ && npm run dev:server
-
-# Terminal 2 - Frontend
-cd frontend/ && npm start
-```
-
-## 📦 Implantação em Produção
-
-Certifique-se de estar logado com o usuário de deploy:
-
-```bash
-su - deploy
-git pull
-# Seguir passos de build documentados na pasta build/
-```
-
-## 🛠️ Tecnologias Utilizadas
-
-* [Express](https://expressjs.com/pt-br/) - Backend Framework
-* [React](https://react.dev/) - Frontend Framework
-* [NPM](https://www.npmjs.com/) - Package Manager
-* [Material UI](https://mui.com/) - UI Components
-
-## 📌 Versão
-**6.0.0** (2026)
+  # Innovation IA - Plataforma de CRM & Automação de WhatsApp
+  
+  **Software independente, maduro e atualmente em uso em ambiente de produção.**
+  
+  ![Status](https://img.shields.io/badge/Status-Em%20Produção-success?style=for-the-badge)
+  ![Plataforma](https://img.shields.io/badge/Plataforma-Desktop%20%7C%20Web-blue?style=for-the-badge)
+</div>
 
 ---
-⌨️ com ❤️ por [Innovation](https://innovation.com) 😊
-Todos os direitos reservados.
+
+## 🚀 Sobre o Projeto
+
+O **Innovation IA** é uma solução completa e robusta de **Customer Relationship Management (CRM) focada na automação inteligente do WhatsApp**. Desenvolvido para escalar o atendimento e as vendas de empresas, este software atua de ponta a ponta na gestão do relacionamento com o cliente.
+
+Não se trata apenas de uma prova de conceito, mas sim de uma plataforma corporativa madura, **100% pronta e em operação real em clientes**. O aplicativo desktop (empacotado via Electron) fornece aos usuários uma experiência fluida, estável e nativa, simplificando a complexidade de gerenciar múltiplos clientes, processar mídias e gerenciar compromissos diários.
+
+## 🎯 Principais Funcionalidades
+
+O sistema foi arquitetado para lidar com o fluxo de trabalho diário de alta demanda de equipes comerciais e de suporte, suportando de forma totalmente integrada:
+
+- 🤖 **Automação Avançada de WhatsApp:** Fluxos inteligentes de mensagens, respostas assíncronas de alta performance e filas de atendimento, substituindo o trabalho manual repetitivo.
+- 🎙️ **Processamento Nativo de Mídias:** Tratamento de ponta a ponta para envio e recebimento de **Áudios, Fotos e Documentos**, garantindo que as vendas e os atendimentos não percam o aspecto humano.
+- 📅 **Gestão de Agendas e Funil de Vendas:** Sistema integrado (CRM) para controle total dos contatos, gestão de follow-ups, agendamentos, e acompanhamento em cada etapa do funil.
+- 💻 **Aplicativo Desktop Multi-Plataforma (Desktop App):** Construído para desktop, permitindo um empacotamento completo (`.exe`) e distribuição simplificada através de um instalador próprio.
+- 🔒 **Arquitetura Segura e Escalável:** Boas práticas de segurança implementadas desde a base. O sistema não expõe tokens proprietários e adota padrões rígidos de isolamento para privacidade e conformidade.
+
+## 🛠️ Stack e Engenharia de Software
+
+A construção desta solução exigiu o domínio de diversas disciplinas críticas:
+
+- **Electron & Node.js:** Base do aplicativo desktop, garantindo integração profunda com o sistema operacional, controle de ciclo de vida e performance.
+- **Integração de APIs de Mensageria:** Lidando com concorrência, webhooks e manipulação de fluxos assíncronos de dados do WhatsApp.
+- **Pipeline de Distribuição:** Scripts automatizados (`build-installer.js`) para a geração de instaladores profissionais Windows (NSIS) usando `electron-winstaller`.
+
+## 💼 Impacto do Projeto e Visão de Engenharia
+
+O desenvolvimento do **Innovation IA** evidencia a capacidade de atuar em todo o **Ciclo de Vida de Software**:
+1. **Concepção ao Deploy:** Integração da interface de front-end com um robusto back-end (Express/Node) e a criação de uma casca desktop independente.
+2. **Resolução de Problemas Reais:** O software opera lidando com problemas reais de I/O, manipulação de arquivos binários (áudios/imagens) e estado assíncrono das comunicações de WhatsApp.
+3. **Visão de Produto:** Entrega focada no cliente final (instalação com um clique e interface nativa e responsiva).
+
+---
+
+*Transformando complexidade operacional em produtividade automatizada.*
