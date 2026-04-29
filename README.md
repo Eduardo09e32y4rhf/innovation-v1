@@ -1,6 +1,4 @@
 <div align="center">
-  <img src="assets/new-logo.png" alt="Innovation IA Logo" width="200"/>
-
   # Innovation IA - Plataforma de CRM & Automação de WhatsApp
   
   **Software independente, maduro e atualmente em uso em ambiente de produção.**
